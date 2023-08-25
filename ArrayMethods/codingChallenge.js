@@ -24,3 +24,16 @@ const checkDogs = function(dogsJulia, dogsJarred) {
 
 };
 checkDogs(data1,data2);
+
+const avgHumanAge = function(ages) {
+    const humaAge = ages.map(age => age <= 2 ? 2 * age : 16 + age * 4);
+    const adults = humaAge.filter( age => age >= 18) 
+    console.log('human', humaAge);
+    console.log('adult', adults);
+    const avg = adults.reduce((acc, curr) => 
+        acc += curr,0 / adults.length
+    )
+    console.log('avg', avg)
+};
+avgHumanAge(data1);
+

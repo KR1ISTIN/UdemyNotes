@@ -75,7 +75,7 @@ const displayMovements = function(movements) {
 
     const html = `<div class="movements__row">
       <div class="movements__type movements__type--${type}">${i+1} ${type}</div>
-     <div class="movements__value">${m}</div>
+     <div class="movements__value">${m}€</div>
     </div>`
 
     // method to insert html, accepts two args, the first which represents: the position in which we want to attach the html
@@ -89,9 +89,42 @@ displayMovements(account1.movements);
 // show total balance 
 const printTotal = function(movements) {
   const total = movements.reduce((acc,m) => acc += m)
-  labelBalance.textContent = `${total} EUR`
+  labelBalance.textContent = `${total}€`
 };
 printTotal(account1.movements);
+
+// sum out interest
+const summary = function(movements) {
+  const incomes = movements.filter(m => m > 0).reduce((acc, m) => acc += m, 0)
+    labelSumIn.textContent = `${incomes}€`;
+
+  const out = movements.filter(m => m < 0). reduce((acc, m) => acc + m, 0);
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const interest = movements.filter(m => m > 0)
+    .map(deposit => deposit * 1.2/100)
+    .filter((int, i ) => {
+      return int >= 1
+    })
+    .reduce((acc, int) => acc += int, 0);
+  labelSumInterest.textContent = `${interest}€`
+
+
+}
+summary(account1.movements);
+
+// creating a new property on the accounts for the username
+const createUsers = function(accs) {
+  accs.forEach(function(acc) { // forEach to modify the array, i dont need a new array 
+    acc.username = acc.owner // creates a new property on each account
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0]) // returns first letter
+      .join(''); // bring together with no spacing 
+  })
+}
+createUsers(accounts)
+console.log(accounts)
 
 
 

@@ -76,3 +76,16 @@ const maxVal = movements.reduce((acc, m) => {
     else return m
 }, movements[0]); // start at index 0 of movements array which is equal to the acc 
 console.log(maxVal);
+
+// ------------------ Chaining Methods Together ---------------- \\
+
+// can only chain if the method returns a array
+const chaining = movements
+    .filter(m => m > 0)
+    .map((m, i, arr) => { // add args to check array to help debug
+        console.log('check array here', arr)
+        return m * eurToUsd
+    })
+    .reduce((acc, curr) => acc += curr, 0);
+console.log('chaining', chaining);
+
