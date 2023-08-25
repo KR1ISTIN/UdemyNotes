@@ -61,9 +61,32 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
+
+// NOTE: .innerHTML returns everything including the html tags and content, .textContent returns the text itself
+
+
+// adding functionality to dymanically append a str to the html doc
+const displayMovements = function(movements) {
+  // set the element to empty str to then allow the forEach method to display properly 
+  containerMovements.innerHTML = '';
+  
+  movements.forEach(function(m, i) {
+    const type = m > 0 ? 'deposit' : 'withdrawal'
+
+    const html = `<div class="movements__row">
+      <div class="movements__type movements__type--${type}">${i+1} ${type}</div>
+     <div class="movements__value">${m}</div>
+    </div>`
+
+    // method to insert html, accepts two args, the first which represents: the position in which we want to attach the html
+    // so will attach to to AFTER the containerMovements variable in the html doc, so after the parent attach
+    // the second arg, is the str we want to insert
+    containerMovements.insertAdjacentHTML('afterbegin', html)
+  })
+};
+displayMovements(account1.movements)
+
+
 
 const currencies = new Map([
   ['USD', 'United States dollar'],
