@@ -86,9 +86,10 @@ const displayMovements = function(movements) {
 
 
 // show total balance 
-const printTotal = function(movements) {
-  const total = movements.reduce((acc,m) => acc += m)
-  labelBalance.textContent = `${total}€`
+const printTotal = function(acc) {
+  const total = acc.movements.reduce((acc,m) => acc += m);
+  acc.total = total;
+  labelBalance.textContent = `${total}€`;
 };
 
 
@@ -125,6 +126,12 @@ const createUsers = function(accs) {
 createUsers(accounts);
 console.log(accounts);
 
+const updateUI = function(acc) {
+  displayMovements(acc.movements);
+  printTotal(acc);
+  summary(acc);
+}
+
 let currentAccount;
 
 // implementing login
@@ -141,13 +148,36 @@ btnLogin.addEventListener('click', function(e) {
     console.log('LOGIN', currentAccount.owner)
     labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`
     containerApp.style.opacity = 100;
-    displayMovements(currentAccount.movements);
-    printTotal(currentAccount.movements);
-    summary(currentAccount);
+ 
+    updateUI(currentAccount);
+    
     // can do this bc it starts right to left
-    inputLoginUsername.value = inputLoginPin.value = ''
+    inputLoginUsername.value = inputLoginPin.value = '';
     //inputLoginPin.blur();
   }
+});
+
+// transfer functionality 
+btnTransfer.addEventListener('click', function(e) {
+  e.preventDefault(); // common with forms
+
+  const amount = Number(inputTransferAmount.value);
+  const acctR = accounts.find(acc => acc.username === inputTransferTo.value);
+  console.log(amount, acctR);
+
+  if(amount > 0 && 
+    currentAccount.total >= amount && 
+    acctR &&
+    acctR?.username !== currentAccount.username ) {
+    console.log('transfer', amount)
+  } else console.log('transfer not vaild');
+  // actual transfer 
+  currentAccount.movements.push(-amount);
+  acctR.movements.push(amount);
+
+  updateUI(currentAccount);
+  inputTransferTo.value = inputTransferAmount.value = '';
+
 })
 
 
