@@ -12,7 +12,7 @@
 
 // ------------------------ MAP METHOD -------------------- \\
 
-const movements = [200, 450, -400, 3000, -650, -130, 70];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 4000];
 
 const eurToUsd = 1.1;
 
@@ -40,6 +40,39 @@ const exArg = movements.map((m, i, a) =>
 );
 console.log(exArg);
 
-// ---------- Filter Method ------------- \\
 
+// ---------------------------Filter Method ---------------------------- \\
 
+// returns new array
+const deposits = movements.filter(function(m, i, a) {
+    return m > 0
+});
+console.log(deposits);
+
+// or manually create a new array
+const depositsArr = [];
+for(const m of movements) m > 0 ? depositsArr.push(m) : console.log(`${m} is not greater than 0`)
+console.log(depositsArr);
+
+// -------------------------- Reduce Method ------------------ \\
+
+// acc is the total- snowball
+// acc will be the sum of all the previous values that have already been added up 
+const total = movements.reduce(function(acc, curr, i, arr) {
+    console.log(acc,'----', 'current element to be added:', curr, 'index:', i)
+    return acc + curr
+}, 0);
+// 0 is the second argument of the reduce method with is what you want the acc to start at for the first loop iteration
+console.log(total);
+
+// manually update
+let total2 = 0;
+for(const m of movements) total2 += m;
+console.log('of of loop', total2);
+
+// get MAX value
+const maxVal = movements.reduce((acc, m) => {
+    if(acc > m ) return acc
+    else return m
+}, movements[0]); // start at index 0 of movements array which is equal to the acc 
+console.log(maxVal);

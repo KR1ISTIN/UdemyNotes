@@ -84,7 +84,14 @@ const displayMovements = function(movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html)
   })
 };
-displayMovements(account1.movements)
+displayMovements(account1.movements);
+
+// show total balance 
+const printTotal = function(movements) {
+  const total = movements.reduce((acc,m) => acc += m)
+  labelBalance.textContent = `${total} EUR`
+};
+printTotal(account1.movements);
 
 
 
