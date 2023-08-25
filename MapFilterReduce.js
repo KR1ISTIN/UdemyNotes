@@ -89,3 +89,14 @@ const chaining = movements
     .reduce((acc, curr) => acc += curr, 0);
 console.log('chaining', chaining);
 
+
+// ----------------------- Find Method ---------------------- \\
+// will reteive the FIRST element in that array that RETURNS a true condition 
+const fistWithdraw= movements.find(m => m < 0);
+console.log(fistWithdraw); 
+
+// ** filter returns all elements that meet the conditon, and returns new array 
+// find returns the first element to meet condition, does not return an array 
+
+
+

@@ -102,23 +102,23 @@ console.log(`LINE 100 ${starter}, ${main}`); // Pasta, Pizza
 // Nested Array Destructure
 const nested = [2, 4, [3, 6]];
 const [i, , j] = nested;
-console.log(i, j); // 2, [3,6]
+console.log('line 105', i, j); // 2, [3,6]
 // if we want all individual values
 const [k, , [l, m]] = nested;
-console.log(k, l, m); // 2,3,6
+console.log('line 108', k, l, m); // 2,3,6
 
 // Setting Default Values
 const [p, q, r] = [8, 9];
-console.log(p, q, r); // 8, 9, undefined
+console.log('line 112', p, q, r); // 8, 9, undefined
 // now set defaults:
 const [b = 1, n = 2, o = 3] = [8, 9];
-console.log(b, n, o); // 8, 9, 3
+console.log('line 115', b, n, o); // 8, 9, 3
 
 // ------------------DESTRUCTURING OBJECTS------------------\\
 
 // destructuring objects
 const { name, hours, categories } = restaurant;
-console.log(name, hours, categories); // prints: Mama Mia, {thu: {...}, fri: {...}, sat:{...}, ["Italian", "Pizzeria", "Pasta", "Organic"]}
+console.log('line 121', name, hours, categories); // prints: Mama Mia, {thu: {...}, fri: {...}, sat:{...}, ["Italian", "Pizzeria", "Pasta", "Organic"]}
 
 // if we want variable names to be different that the property names
 const {
@@ -126,19 +126,19 @@ const {
   hours: hoursOfOperation,
   categories: foodTypes,
 } = restaurant;
-console.log(restaurantName, hoursOfOperation, foodTypes);
+console.log('line 129', restaurantName, hoursOfOperation, foodTypes);
 
 // setting default values
 // starterMenu does exist, but menu does not
 const { menu = [], starterMenu: starters = [] } = restaurant;
-console.log(menu, starters); // prints: [], ["Focaccia", "Brushcetta", "Salad", "Garlic bread"]
+console.log('line 134', menu, starters); // prints: [], ["Focaccia", "Brushcetta", "Salad", "Garlic bread"]
 
 // Mutating Variables
 let e = 111;
 let t = 500;
 const obj = { e: 22, t: 44, c: 14 };
 ({ e, t } = obj);
-console.log(e, t); // 22, 44
+console.log('line 141', e, t); // 22, 44
 
 // Nested Objects
 // const {fri} = hours;
@@ -146,35 +146,35 @@ console.log(e, t); // 22, 44
 const {
   fri: { open, close },
 } = hours; // needs to be exact properties
-console.log(open, close); // 11, 23
+console.log('line 149', open, close); // 11, 23
 
 // can even assign them to different variables
 const {
   fri: { open: openHours, close: closeHours },
 } = hours; // needs to be exact properties
-console.log(openHours, closeHours);
+console.log('line 155', openHours, closeHours);
 
 // -------------------The spread Operator-----------------\\
 
 const spreadArr = [8, 9, 10];
 const goodNewArr = [1, 2, ...spreadArr];
-console.log(goodNewArr); // [1,2,8,9,10] makes a new array
-console.log(...goodNewArr); // 1,2,8,9,10 gives indiviual values
+console.log('line 161', goodNewArr); // [1,2,8,9,10] makes a new array
+console.log('line 162', ...goodNewArr); // 1,2,8,9,10 gives indiviual values
 
 const newMenu = [...restaurant.mainMenu, "gnocci,"];
-console.log(newMenu); // ["Pizza", "Spahgetti", "Risotto", "gnocci"]
+console.log('line 165', newMenu); // ["Pizza", "Spahgetti", "Risotto", "gnocci"]
 
 // copy array
 const mainMenuCopy = [...restaurant.mainMenu];
 // join 2 arrays together
 const joinMenu = [...restaurant.starterMenu, ...restaurant.mainMenu];
-console.log(joinMenu);
+console.log('line 171', joinMenu);
 
 // Iterables: strings, arrays, maps, sets, but not Objects
 // you can use the spread operator on iterables
 const str = "kristin";
 const letters = [...str, " ", "HI"];
-console.log(letters); // ['k', 'r', 'i', 's', 't', 'i', 'n', ' ', 'HI']
+console.log('line 177', letters); // ['k', 'r', 'i', 's', 't', 'i', 'n', ' ', 'HI']
 
 // prompt just using an example not functionality right now
 // const ingredients = [
@@ -189,7 +189,7 @@ console.log(letters); // ['k', 'r', 'i', 's', 't', 'i', 'n', ' ', 'HI']
 
 // since 2018 since objects are not iterables, you can still use spread operator
 const newRest = { ...restaurant, found: "Kristin Desalme", builtIn: 1994 };
-console.log(newRest);
+console.log('line 192', newRest);
 
 // Making a Copy and changing the restaurant name
 const restaurantCopy = { ...restaurant };

@@ -69,7 +69,6 @@ const inputClosePin = document.querySelector('.form__input--pin');
 const displayMovements = function(movements) {
   // set the element to empty str to then allow the forEach method to display properly 
   containerMovements.innerHTML = '';
-  
   movements.forEach(function(m, i) {
     const type = m > 0 ? 'deposit' : 'withdrawal'
 
@@ -84,34 +83,34 @@ const displayMovements = function(movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html)
   })
 };
-displayMovements(account1.movements);
+
 
 // show total balance 
 const printTotal = function(movements) {
   const total = movements.reduce((acc,m) => acc += m)
   labelBalance.textContent = `${total}€`
 };
-printTotal(account1.movements);
+
+
 
 // sum out interest
-const summary = function(movements) {
-  const incomes = movements.filter(m => m > 0).reduce((acc, m) => acc += m, 0)
+const summary = function(accounts) {
+  const incomes = accounts.movements.filter(m => m > 0).reduce((acc, m) => acc += m, 0)
     labelSumIn.textContent = `${incomes}€`;
 
-  const out = movements.filter(m => m < 0). reduce((acc, m) => acc + m, 0);
+  const out = accounts.movements.filter(m => m < 0). reduce((acc, m) => acc + m, 0);
   labelSumOut.textContent = `${Math.abs(out)}€`;
 
-  const interest = movements.filter(m => m > 0)
-    .map(deposit => deposit * 1.2/100)
+  const interest = accounts.movements.filter(m => m > 0)
+    .map(deposit => deposit * accounts.interestRate/100)
     .filter((int, i ) => {
       return int >= 1
     })
     .reduce((acc, int) => acc += int, 0);
   labelSumInterest.textContent = `${interest}€`
-
-
 }
-summary(account1.movements);
+
+
 
 // creating a new property on the accounts for the username
 const createUsers = function(accs) {
@@ -123,9 +122,33 @@ const createUsers = function(accs) {
       .join(''); // bring together with no spacing 
   })
 }
-createUsers(accounts)
-console.log(accounts)
+createUsers(accounts);
+console.log(accounts);
 
+let currentAccount;
+
+// implementing login
+btnLogin.addEventListener('click', function(e) {
+  // prevent form from submitting
+  e.preventDefault();
+  currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value)
+  console.log(currentAccount)
+  // if cannot find a account, undefined will return 
+
+  if(currentAccount?.pin === Number(inputLoginPin.value)) {
+    // have to convert the value of the login pin to a number bc an input will return a str
+    // and the pin property is a number on the objects
+    console.log('LOGIN', currentAccount.owner)
+    labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`
+    containerApp.style.opacity = 100;
+    displayMovements(currentAccount.movements);
+    printTotal(currentAccount.movements);
+    summary(currentAccount);
+    // can do this bc it starts right to left
+    inputLoginUsername.value = inputLoginPin.value = ''
+    //inputLoginPin.blur();
+  }
+})
 
 
 const currencies = new Map([
