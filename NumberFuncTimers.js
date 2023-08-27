@@ -40,3 +40,14 @@ console.log('line 39', Math.round(23.7));
 // .floor will round down and works with negitives and remove the remainders, so this is better to work with than trunc
 console.log('line 40', Math.floor(23.3));
 console.log('line 42', Math.floor(23.8));
+
+console.log('-------------------The remainder operator-------------');
+// returns the remainder of division
+console.log( 5 % 2); // 1 bc 2 can go into 5 2 times with a remainder one 1 leftover
+console.log(5 / 2); // basically what is happening in line 46
+
+// function to check if a num is even or odd
+const isEven = n => n % 2 === 0;
+console.log('line 51', isEven(8));
+console.log('line 52', isEven(23));
+
