@@ -100,3 +100,51 @@ console.log(fistWithdraw);
 
 
 
+// ----------------------- Some method vs Includes method -------------- \\
+
+// checks to equality, just to check if it includes value 
+console.log('line 106', movements.includes(-130));
+
+// can input a condition
+const some = movements.some(m => m > 0);
+console.log('line 110', some); 
+
+// ----------- Every method ----------- \\
+// only returns true if all elements meet the condition 
+console.log('line 114', movements.every(m => m > 0)); // returns false since there are negitives values in the movements array 
+
+// example to add a cb function more dynamically
+const cb = m => m > 0;
+console.log('line 117', movements.some(cb)); 
+console.log('line 117', movements.every(cb)); 
+console.log('line 117', movements.filter(cb)); 
+
+
+// ------------------- flat vs flatMap methods -------------------- \\
+
+// Flat will go only one level deep to create one array, does not modity original array
+const a = [[1,2], 3,4, [5,6]];
+console.log(a.flat()); 
+console.log(a);
+
+const b = [[[1,2], 3], [4,[5,6]], 7,8];
+console.log(b.flat(2)); // 2 represents how nested you want to go down 
+
+// --------- sort method --------- \\
+// a - z, it sorts strings
+// original array is modified
+// with strings
+const people = ['kristin', 'jarred', 'amy', 'briley'];
+console.log(people.sort());
+console.log(people); 
+
+// with numbers
+// a: current value, b: next value 
+// example below shows ascending order , if want opposite just reserve logic -1, 1
+movements.sort((a,b) => {
+    if(a > b) 
+        return 1;
+    if (b > a)
+        return -1
+});
+console.log('line 147', movements)

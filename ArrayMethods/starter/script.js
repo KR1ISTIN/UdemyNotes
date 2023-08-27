@@ -126,11 +126,13 @@ const createUsers = function(accs) {
 createUsers(accounts);
 console.log(accounts);
 
+
 const updateUI = function(acc) {
   displayMovements(acc.movements);
   printTotal(acc);
   summary(acc);
-}
+};
+
 
 let currentAccount;
 
@@ -157,6 +159,18 @@ btnLogin.addEventListener('click', function(e) {
   }
 });
 
+
+btnLoan.addEventListener('click', function(e) {
+  e.preventDefault();
+  const loanAmount = Number(inputLoanAmount.value);
+
+  if (loanAmount > 0 && currentAccount.movements.some(m => m >= loanAmount/10)) {
+    currentAccount.movements.push(loanAmount);
+    updateUI(currentAccount);
+    inputLoanAmount.value = '';
+  }
+})
+
 // transfer functionality 
 btnTransfer.addEventListener('click', function(e) {
   e.preventDefault(); // common with forms
@@ -178,6 +192,26 @@ btnTransfer.addEventListener('click', function(e) {
   updateUI(currentAccount);
   inputTransferTo.value = inputTransferAmount.value = '';
 
+
+});
+
+
+// ------------- FindIndex Method ------------------ \\ 
+// delete an account
+btnClose.addEventListener('click', function(e) {
+  e.preventDefault();
+
+  if (inputCloseUsername.value === currentAccount.username && Number(inputClosePin.value) === currentAccount.pin) {
+    const index = accounts.findIndex(acc => acc.username === currentAccount.username)
+    // console.log(index);
+    // deletes account
+    accounts.splice(index, 1); // will update the array
+    console.log(accounts);
+
+    inputCloseUsername.value = inputClosePin.value = '';
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = `Sorry to see you go`
+  }
 })
 
 
