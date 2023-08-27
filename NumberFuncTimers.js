@@ -51,3 +51,9 @@ const isEven = n => n % 2 === 0;
 console.log('line 51', isEven(8));
 console.log('line 52', isEven(23));
 
+console.log('-----------------Numeric Seperators---------------');
+
+const diameter = 12_333_000_066; // this number is hard to read
+console.log(diameter);// the underscores help to read the number but the console does not read it what way
+
+
