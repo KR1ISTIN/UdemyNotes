@@ -56,4 +56,31 @@ console.log('-----------------Numeric Seperators---------------');
 const diameter = 12_333_000_066; // this number is hard to read
 console.log(diameter);// the underscores help to read the number but the console does not read it what way
 
+console.log('----------------Working with BIGINTS-------------------');
+
+// can store numbers as large as we want
+console.log(7426472638268472874928472846128764819274821482);
+console.log(7426472638268472874928472846128764819274821482n);
+// the n on line 63 turns the number into a BIGINT
+
+console.log(BigInt(677767678565654)); // better for smaller numbers 
+
+// works with operations
+// when working with operations you cannot mix types, both numbers have to considered a BIGINT
+// ex: 
+const huge = 638273482748728478247n;
+const n = 23;
+// console.log(huge * n); // cannot do this
+console.log('line 74', huge + BigInt(n));
+
+console.log('line 76', 28n > 15); // can do
+console.log('line 77', 28n === 28); // will give false bc this is strict equality (bigint vs number)
+console.log('line 77', 28n == 28); // true bc is loosely equal
+
+console.log(11n / 3n); // will get rid of the remainder
+console.log(11 / 3);
+console.log(huge + 'this is a big number');
+
+
+
 
