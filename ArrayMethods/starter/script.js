@@ -61,6 +61,7 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+let currentAccount, timer; // need timer for different logins  
 
 // NOTE: .innerHTML returns everything including the html tags and content, .textContent returns the text itself
 
@@ -133,8 +134,25 @@ const updateUI = function(acc) {
   summary(acc);
 };
 
+const startLogOutTimer = function () {
+  let time = 100;
+  const tick = function() {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0); // mins
+    const secs = String(time % 60).padStart(2.0)
+    labelTimer.textContent = `${min}:${secs}`
+    if(time === 0) {
+      clearInterval(timer)
+      labelWelcome.textContent = 'Log in to get started'
+      containerApp.style.opacity = 0;
+    }
+    time--;
+  };
+  tick(); // start immediately
+  const timer = setInterval(tick, 1000); // then call again every one second
+  return timer;
+};
 
-let currentAccount;
+
 
 // implementing login
 btnLogin.addEventListener('click', function(e) {
@@ -150,6 +168,9 @@ btnLogin.addEventListener('click', function(e) {
     console.log('LOGIN', currentAccount.owner)
     labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`
     containerApp.style.opacity = 100;
+    // checks to see if a timer is already running, if so clear it and reset it to new user
+    if(timer) clearInterval(timer);
+    timer = startLogOutTimer();
  
     updateUI(currentAccount);
     

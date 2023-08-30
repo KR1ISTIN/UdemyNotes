@@ -81,6 +81,33 @@ console.log(11n / 3n); // will get rid of the remainder
 console.log(11 / 3);
 console.log(huge + 'this is a big number');
 
+console.log('------------Creating Dates------------');
+
+const now = new Date();
+console.log(now);
+
+console.log('------------Creating Timers------------');
+// setInterval: timers runs forever until we stop it 
+// setTimeOut: runs once after a set defined time
+
+// setTimeout takes two arguments, the first arg is the cb function and runs once
+// 3000 millsecond is the sec arg, so itll call this function after 3 seconds 
+const ingredients = ['pepperoni', 'ham']
+const timer = setTimeout((ing1, ing2, ing3, ing4) => console.log(`here is your pizza with ${ing1}, ${ing2}, ${ing3} and ${ing4}`),
+ 3000,
+ 'spinach',
+ 'feta',
+ ...ingredients);
+
+if(ingredients.includes('ham')) clearTimeout(timer);
+// timer will hold the results of setTimeout which includes ham so the timer will not run 
+
+//setInterval
+setInterval(function() {
+    const now = new Date();
+    console.log(now)
+}, 1000)
+
 
 
 
