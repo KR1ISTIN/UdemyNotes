@@ -32,6 +32,7 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+
 // smooth scroll functionality 
 btnScrollTo.addEventListener('click', function(e) {
   // method below gives coordidates to the element the method is called on 
@@ -57,6 +58,40 @@ btnScrollTo.addEventListener('click', function(e) {
   // simpler way to smooth scroll, works only with modern browsers
   section1.scrollIntoView({behavior: 'smooth'});
 });
+
+// page navigation 
+// this is one way but not good for perforamce, you want to use event delegation instead
+// document.querySelectorAll('.nav__link').forEach(function(el) {
+//   el.addEventListener('click', function(e) {
+//     e.preventDefault(); // keeps page from reloading and scrolling to section
+//     const id = this.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({behavior: 'smooth'})
+//   })
+// });
+// event delegation:
+// places the event listener on a common parent of all the elements that we are interested in targeting
+// so the container holding think links would be a common parent to each link
+// therefore, place the eventListener on the Container, and when user clicks on a link, then event is generated and bubbles up as normal
+
+// step one: add event listener to common parent element
+// determine what element orignated that event
+
+document.querySelector('.nav__links').addEventListener('click', function(e) {
+  console.log(e.target,'------------', e.currentTarget)
+  e.preventDefault();
+  // matching
+  if(e.target.classList.contains('nav__link')) {
+    console.log('link');
+    const id = e.target.getAttribute('href'); // e.target since it is on the parent element
+     console.log(id);
+    document.querySelector(id).scrollIntoView({behavior: 'smooth'})
+  }
+  
+})
+
+
+
 
 const h1 = document.querySelector('h1');
 
@@ -96,7 +131,7 @@ document.querySelector('.nav__link')
     // e.target will be the same for the parent, but its not attached to the element
     // the event originates at this link and then bubbles up
     // e.currentTarget is the element onwhich the eventHandler is attached
-    console.log('LINK', e.target, e.currentTarget)
+    //console.log('LINK', e.target, e.currentTarget)
 
     // stopping event propagation -- stops bubbling -- not proper practice -- just for knowledge
     //e.stopPropagation();
@@ -107,7 +142,7 @@ document.querySelector('.nav__link')
 document.querySelector('.nav')
   .addEventListener('click', function(e) {
     this.style.backgroundColor = randomColor();
-    console.log('NAVBAR', e.target, e.currentTarget)
+    //console.log('NAVBAR', e.target, e.currentTarget)
     
 });
 
@@ -117,5 +152,5 @@ document.querySelector('.nav__links')
   .addEventListener('click', function(e) {
    
     this.style.backgroundColor = randomColor();
-    console.log('CONTAINER', e.target, e.currentTarget)
+    //console.log('CONTAINER', e.target, e.currentTarget)
 });
