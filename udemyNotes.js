@@ -39,7 +39,7 @@ const restaurant = {
           close: 3
   }
   },
-  // with new es6 syntax you can get rid of the word function like in line 26
+  // with new es6 syntax you can get rid of the word function 
   order(startedIndex, mainIndex) {
     return [this.starterMenu[startedIndex], this.mainMenu[mainIndex]];
   },
@@ -236,11 +236,11 @@ restaurant.orderPizza("mushrooms", "olives", "tomatoes");
 for (const item of menu) console.log(item); // will print each value individually
 // but if we want the index
 for (const item of menu.entries()) {
-  console.log(item); // will print indivual arrays with index and value
+  console.log('line 239', item); // will print indivual arrays with index and value
 }
 // if we want to destructure this array
 for (const [i, el] of menu.entries()) {
-  console.log(`${i + 1}: ${el}`); // will print index and value not in an array
+  console.log('line 243', `${i + 1}: ${el}`); // will print index and value not in an array
 }
 
 
