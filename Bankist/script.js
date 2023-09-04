@@ -169,7 +169,7 @@ h1.lastElementChild.style.color = 'orange' // sets only direct last child
 console.log(h1.parentNode); // the parent is a div with a class header_title 
 console.log(h1.parentElement);
 h1.closest('.header').style.background = 'var(--gradient-secondary)' // will select the parent of h1 with the .header class that is closetest and change the background color 
-// takes is a selector 
+// takes is a selector, if you put 'h1' instead of .header, it'll targets itself 
 
 // selecting siblings
 console.log(h1.previousElementSibling); // null bc is does not have a previous sibling
@@ -185,5 +185,34 @@ console.log(h1.parentElement.children); // gives us a iterable, so we canuse the
   }
 });
 
+// building a tabbed component in the operations sections
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+// dont do this, this will slow down the page
+//tabs.forEach(t => t.addEventListener('click', () => console.log('tab')))
+// instead you want to use event delegation example below:
+
+tabsContainer.addEventListener('click', function(e) {
+  const clicked = e.target.closest('.operations__tab');
+  console.log(clicked); // if we click on the button as a whole it'll target what we want BUT 
+  // if we click on the span element inside the button, it will not give us what we want, it'll just populate the span element when we need the data attribute thats linked on the button
+  // thats why we had to add the .closest(), it'll find the closest parent with the className '.operations__tab'
+
+  // if not clicked, this is a guard clause, guards the classList added when clicked
+  if(!clicked) return;
+
+  // if not clicked, will remove the active status, clear first then add on the one that is clicked and same for content
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+  
+  // if clicked add:
+  clicked.classList.add('operations__tab--active');
+  // dataset
+  console.log('dataset tab:', clicked.dataset.tab);
+  // content added to clicked tab
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
+})
 
 
