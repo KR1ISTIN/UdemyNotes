@@ -1,4 +1,6 @@
 'use strict';
+// ------------------ CONSTRUCTOR FUNCTIONS -------------- 
+
 // usually constructor functions start with a capital letter
 // you cannot use arrow functions for this, bc arrow functions dont have its own this keyword, we we need it 
 const Person = function(firstName, birthYear) {
@@ -33,5 +35,43 @@ person2.calcAge();
 // adding a property
 Person.prototype.species = 'human';
 console.log(person1.species, person1);
+
+// ---------------- ES6 CLASSES ---------------
+// class expression example
+// const p = class {
+
+// }
+
+// class declaration 
+class PersonCl {
+    constructor(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birthYear = birthYear
+    }
+    // methods will be added to .prototype property to the PersonCl class
+    calcAge() {
+        console.log(2030 - this.birthYear)
+    }
+
+    greet() {
+        console.log(`hey ${this.firstName}`)
+    }
+};
+
+const person3 = new PersonCl('Briley', 2021);
+console.log(person3);
+person3.calcAge();
+
+// this or you can do line 56 instead and works the sameway 
+// PersonCl.prototype.greet = function() {
+//     console.log(`hey ${this.firstName}`)
+// };
+
+person3.greet();
+
+// classes are not hoisted
+// classes are first class citizens
+// body of a class is always executed in strict mode 
+
 
 
