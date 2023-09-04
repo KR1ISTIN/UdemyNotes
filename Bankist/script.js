@@ -9,6 +9,7 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const nav = document.querySelector('.nav');
 
 const openModal = function () {
   modal.classList.remove('hidden');
@@ -213,6 +214,32 @@ tabsContainer.addEventListener('click', function(e) {
   console.log('dataset tab:', clicked.dataset.tab);
   // content added to clicked tab
   document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
-})
+});
+
+// event handlers
+// menu fade animation
+
+const handleHover = function (e, opacity) {
+  if(e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    console.log('hovered', link);
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+    console.log('siblings', siblings)
+
+    siblings.forEach(el => {
+      if(el !== link) el.style.opacity = opacity;
+    })
+    logo.style.opacity = opacity;
+  }
+};
+
+nav.addEventListener('mouseover', function(e) {
+  handleHover(e, 0.5)
+});
+
+nav.addEventListener('mouseout', function(e) {
+  handleHover(e, 1)
+});
 
 
