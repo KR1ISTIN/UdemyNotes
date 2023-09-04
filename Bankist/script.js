@@ -71,14 +71,15 @@ btnScrollTo.addEventListener('click', function(e) {
 // });
 // event delegation:
 // places the event listener on a common parent of all the elements that we are interested in targeting
-// so the container holding think links would be a common parent to each link
+// so the container holding the links would be a common parent to each link
 // therefore, place the eventListener on the Container, and when user clicks on a link, then event is generated and bubbles up as normal
 
 // step one: add event listener to common parent element
 // determine what element orignated that event
 
 document.querySelector('.nav__links').addEventListener('click', function(e) {
-  console.log(e.target,'------------', e.currentTarget)
+  console.log(e.target,'------------')
+  console.log(e.currentTarget)
   e.preventDefault();
   // matching
   if(e.target.classList.contains('nav__link')) {
@@ -87,10 +88,7 @@ document.querySelector('.nav__links').addEventListener('click', function(e) {
      console.log(id);
     document.querySelector(id).scrollIntoView({behavior: 'smooth'})
   }
-  
-})
-
-
+});
 
 
 const h1 = document.querySelector('h1');
@@ -130,6 +128,7 @@ document.querySelector('.nav__link')
     
     // e.target will be the same for the parent, but its not attached to the element
     // the event originates at this link and then bubbles up
+    
     // e.currentTarget is the element onwhich the eventHandler is attached
     //console.log('LINK', e.target, e.currentTarget)
 
@@ -154,3 +153,37 @@ document.querySelector('.nav__links')
     this.style.backgroundColor = randomColor();
     //console.log('CONTAINER', e.target, e.currentTarget)
 });
+
+// DOM TRAVERSING 
+
+// going downwards: selecting child elements
+console.log(h1.querySelectorAll('.highlight'));
+// if there were other elements with the highlight class on the page then they would not get selected bc they are not direct children of h1
+console.log(h1.childNodes); // gives us every single type of node that is a direct child of h1
+console.log(h1.children);  // gives children on within h1 tags 
+h1.firstElementChild.style.color = 'pink' // sets only direct first child
+console.log(h1.firstElementChild); // banking
+h1.lastElementChild.style.color = 'orange' // sets only direct last child
+
+// going upwards: selecting parents elements
+console.log(h1.parentNode); // the parent is a div with a class header_title 
+console.log(h1.parentElement);
+h1.closest('.header').style.background = 'var(--gradient-secondary)' // will select the parent of h1 with the .header class that is closetest and change the background color 
+// takes is a selector 
+
+// selecting siblings
+console.log(h1.previousElementSibling); // null bc is does not have a previous sibling
+console.log(h1.nextElementSibling); // h4 bc its the next sibling
+// when accessing siblings you can only access them next to eachother 
+
+// if you want access to all children
+console.log(h1.parentElement.children); // gives us a iterable, so we canuse the spread operator 
+[...h1.parentElement.children].forEach(function(el) {
+  if(el !== h1) {
+    el.style.transform = 'scale(0.5)';
+    el.style.color = 'red'
+  }
+});
+
+
+
