@@ -44,21 +44,35 @@ console.log(person1.species, person1);
 
 // class declaration 
 class PersonCl {
-    constructor(firstName, birthYear) {
-        this.firstName = firstName;
+    constructor(fullName, birthYear) {
+        this.fullName = fullName; // whatever we pass will be set
         this.birthYear = birthYear
     }
     // methods will be added to .prototype property to the PersonCl class
     calcAge() {
-        console.log(2030 - this.birthYear)
+        console.log('calcAge:', 2023 - this.birthYear)
     }
 
     greet() {
-        console.log(`hey ${this.firstName}`)
+        console.log(`hey ${this.fullName}`)
+    }
+
+    get age() {
+        return  2023 - this.birthYear
+    }
+
+    // SET a property that already exist 
+    set fullName(name){ // but this will also verify if it is a full name being passed
+        console.log(name)
+        if(name.includes(' '))this._fullName = name 
+        else alert(`${name} is not a FULL name`)
+    }
+    get fullName() {
+        return this._fullName
     }
 };
 
-const person3 = new PersonCl('Briley', 2021);
+const person3 = new PersonCl('Briley BRI', 2020);
 console.log(person3);
 person3.calcAge();
 
@@ -69,9 +83,34 @@ person3.calcAge();
 
 person3.greet();
 
+// getter
+console.log('getter', person3.age);
+
 // classes are not hoisted
 // classes are first class citizens
 // body of a class is always executed in strict mode 
+
+// ---------------- GETTERS AND SETTERS -----------------
+// get and set properties
+
+const account = {
+    owner: 'kristin',
+    movements: [200, 300, 50,150],
+
+    // getter
+    get latest() {
+        return this.movements.slice(-1).pop()
+    },
+    //  setter, has to have one param
+    set latest(m) {
+        this.movements.push(m)
+    }
+};
+
+console.log(account.latest)
+// setting 
+account.latest = 20;
+console.log(account.movements);
 
 
 
