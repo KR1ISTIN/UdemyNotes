@@ -131,5 +131,19 @@ console.log(account.latest)
 account.latest = 20;
 console.log(account.movements);
 
+// ------------------- Object.create --------------------
+// manually sets a prototype of an object to any other object 
+
+const PersonProto = {
+    calcAge() {
+        console.log('calcAge:', 2023 - this.birthYear)
+    }
+};
+
+const kristin = Object.create(PersonProto);
+kristin.name = 'kristin';
+kristin.birthYear = 1994;
+console.log(kristin);
+kristin.calcAge();
 
 
