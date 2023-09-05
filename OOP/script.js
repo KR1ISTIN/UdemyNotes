@@ -14,6 +14,16 @@ const Person = function(firstName, birthYear) {
 const person1 = new Person('Kristin', 1994);
 console.log(person1)
 
+// static method example:
+Person.hey = function() {
+    console.log('heeeey heeeey');
+    console.log(this)
+};
+Person.hey(); // this is an example of a static method, its on the Person object itself 
+// person1.hey(); // will not work bc it is not in the prototype in the person1 object
+
+
+
 // -----BEHIND THE SCENCES-----
 // 1. new {} is created
 // 2. then the function is called
@@ -70,11 +80,20 @@ class PersonCl {
     get fullName() {
         return this._fullName
     }
+
+    // static method for classes
+    static hey() {
+        console.log('HELLLLLO');
+        console.log(this)
+    }
 };
 
 const person3 = new PersonCl('Briley BRI', 2020);
 console.log(person3);
 person3.calcAge();
+
+PersonCl.hey()
+
 
 // this or you can do line 56 instead and works the sameway 
 // PersonCl.prototype.greet = function() {
