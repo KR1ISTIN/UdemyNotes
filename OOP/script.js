@@ -146,4 +146,78 @@ kristin.birthYear = 1994;
 console.log(kristin);
 kristin.calcAge();
 
+// ---------------- Inheritance Between "classes": constructor functions ----------------
 
+const PersonC = function(firstName, birthYear) {
+    // set the properties to the values
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+}
+
+PersonC.prototype.calcAgee = function() {
+    console.log(2037 - this.birthYear);
+};
+
+
+const Student = function(firstName, birthYear, course) {
+    PersonC.call(this, firstName, birthYear); // .call allows for this this keyword to be used properly
+    this.course = course;
+}
+
+// linking prototypes
+Student.prototype = Object.create(PersonC.prototype); // now Student.prototype can now inherit Person.prototype 
+
+Student.prototype.introduce = function() {
+    console.log(`hello my name is ${this.firstName}, i study ${this.course}`)
+}
+
+
+const student1 = new Student('mike', 1997, 'comp science');
+student1.introduce();
+student1.calcAgee(); // now has access to the PersonC prototype methods
+
+
+
+// ---------------- Inheritance Between "classes": ES6 Classes ----------------
+
+
+class PersonClass {
+    constructor(fullName, birthYear) {
+        this.fullName = fullName; // whatever we pass will be set
+        this.birthYear = birthYear
+    }
+    // methods will be added to .prototype property to the PersonCl class
+    calcAge() {
+        console.log('calcAge:', 2023 - this.birthYear)
+    }
+
+    greet() {
+        console.log(`hey ${this.fullName}`)
+    }
+
+};
+
+// entends links the prototypes type so StudentClass is a child of PersonClass (the parent class)
+class StudentClass extends PersonClass {
+    // takes in same args as parent class, but with a few more
+    constructor(fullName, birthYear, course) {
+        // super is basically the constructor function of the parent class
+        // so pass in args for super function that match the parent class, 
+        // super always needs to comes first
+        super(fullName,birthYear) 
+        this.course = course;
+    }
+
+    introduce() {
+        console.log(`hello my name is ${this.fullName}, i study ${this.course}`)
+    }
+
+    greet() {
+        console.log('this is polymorphism, im overwriding a method')
+    }
+};
+
+const student2 = new StudentClass('martha', 2012, 'math and reading');
+console.log(student2)
+student2.greet(); // due to the prototype chain, this method is found first so thats why it is overwridden from the parent class
+student2.introduce();
