@@ -12,7 +12,7 @@ const openingHours = {
     open: 11,
     close: 23,
   },
-  [`day-${2 + 6}`]: {
+  [`day-${2 + 2}`]: {
     open: 0,
     close: 3,
   },
@@ -199,14 +199,14 @@ console.log(restaurant.name); // "Mama Mia"
 
 // Rest Pattern with the spread operator (to collect elements that are unused in the destructuring assignment )
 const [a, h, ...others] = [1, 2, 3, 4, 5, 6];
-console.log(a, h, others); // prints 1,2, [4,5,6]
+console.log(a, h, others); // prints 1,2, [3,4,5,6]
 
 // Rest pattern with an object, collecting data with a destructuring spread operator
 const { sat, ...weekdays } = restaurant.hours;
 console.log(weekdays); // prints an object with only weekdays (thu and fri)
 
 // Functions with the REST Pattern
-// the function is taking multi valuesand packs them into ONE ARRAY
+// the function is taking multi values and packs them into ONE ARRAY
 const add = function (...numbers) {
   // ...numbers are called REST arguments
   console.log(numbers);
@@ -233,13 +233,14 @@ restaurant.orderPizza("mushrooms", "olives", "tomatoes");
 
 
 //------------------for-of Loop-------------------\\
-for (const item of menu) console.log(item); // will print each value individually
+console.log('-------------------------for of loop --------------------------------')
+for (const item of joinMenu) console.log( item); // will print each value individually
 // but if we want the index
-for (const item of menu.entries()) {
+for (const item of joinMenu.entries()) {
   console.log('line 239', item); // will print indivual arrays with index and value
 }
 // if we want to destructure this array
-for (const [i, el] of menu.entries()) {
+for (const [i, el] of joinMenu.entries()) {
   console.log('line 243', `${i + 1}: ${el}`); // will print index and value not in an array
 }
 
@@ -247,8 +248,9 @@ for (const [i, el] of menu.entries()) {
 
 
 //-----------------OPTIONAL CHAINING, (?.)---------------\\
+console.log('-------------------------Optional chaining--------------------------------')
 // if we certain property does not exist, then undefined is returned
-console.log(restaurant.openingHours.mon?.open); // if the statement before the ? exist then it will continue to .open, if not the undefined is returned
+console.log('line253', restaurant.openingHours.mon?.open); // if the statement before the ? exist then it will continue to .open, if not the undefined is returned
 const days = ["mon", "tues", "wed", "thru", "fri"];
 for (const day of days) {
   const open = restaurant.openingHours[day]?.open ?? `closed`; // ?? is used if a open or close value is set to 0 which is falsey which would read undefined, but we dont want that so we use the Nullish Coalsing
@@ -272,18 +274,19 @@ else console.log("user array empty");
 
 // getting property names
 const properties = Object.keys(openingHours); // returns an array
+console.log('line 277', properties)
 
 let openStr = `we are open ${properties.length} days: `;
 
 for (const day of properties) {
-  console.log(day); // prints individual day values
+  console.log('line 282', day); // prints individual day values
   openStr += `${day}, `; // adding each day resturant is open
 }
-console.log(openStr); // we are open 3 days: ${day}
+console.log('line 285', openStr); // we are open 3 days: ${day}
 
 // getting propety values
 const values = Object.values(openingHours);
-console.log(values); // prints an array of the object values of each property for the days
+console.log('line 289', values); // prints an array of the object values of each property for the days
 
 //entire object
 const entries = Object.entries(openingHours);

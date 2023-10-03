@@ -68,7 +68,7 @@ console.log(total);
 // manually update
 let total2 = 0;
 for(const m of movements) total2 += m;
-console.log('of of loop', total2);
+console.log('for of loop', total2);
 
 // get MAX value
 const maxVal = movements.reduce((acc, m) => {
@@ -115,9 +115,9 @@ console.log('line 114', movements.every(m => m > 0)); // returns false since the
 
 // example to add a cb function more dynamically
 const cb = m => m > 0;
-console.log('line 117', movements.some(cb)); 
-console.log('line 117', movements.every(cb)); 
-console.log('line 117', movements.filter(cb)); 
+console.log('line 118', movements.some(cb)); 
+console.log('line 119', movements.every(cb)); 
+console.log('line 120', movements.filter(cb)); 
 
 
 // ------------------- flat vs flatMap methods -------------------- \\

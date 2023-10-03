@@ -2,9 +2,9 @@
 const airplane = 'Tap Air Texas';
 const plane = 'A320';
 
-console.log(airplane.indexOf('T')); // prints 8 (the position in the array includes spacing)
+console.log(airplane.indexOf('T')); // prints 0 (the position in the array includes spacing)
 console.log(airplane.lastIndexOf('a'));// prints the last occurance of the value, 11
-console.log(airplane.slice(4)); // extracts from position 4, prints Air Texas // if you want to use this it returns a new string and save it to a variable
+console.log(airplane.slice(4)); // extracts everything after from position 4, prints Air Texas // if you want to use this it returns a new string and save it to a variable
 console.log(airplane.slice(4, 7)); // it stops extracting before if reaches 7, prints - Air
 
 console.log(airplane.slice(0, airplane.indexOf(' '))); // starts at posotion 0, and end at empty string
@@ -30,7 +30,8 @@ checkMiddleSeat('22E');
 // fixing capitalization example below:
 const passenger = 'JoNaS';
 const passLower = passenger.toLowerCase();
-const passCorrect = passLower[0].toUpperCase + passLower.slice(1); // takes the lower case of jonas at positon 0 and turn
+console.log(passLower)
+const passCorrect = passLower[0].toUpperCase() + passLower.slice(1); // takes the lower case of jonas at positon 0 and turn
 // it to an uppercase J, 
 //then slice the name at position 1 and it will extract everything AFTER postion 1
 console.log(passCorrect); // Jonas

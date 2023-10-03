@@ -49,7 +49,7 @@ const delta = {
     code: 'Del',
     bookings: [],
     book(flightNum, name) {
-        console.log(`${name} booked a seat on ${this.airline} flight ${this.code}${flightNum}`)
+        console.log(`${name} booked a seat on ${this.airline} flight ${this.code}:${flightNum}`)
         this.bookings.push({flight: `${this.code}${flightNum}`, name: `${name}`})
     }
     
@@ -106,4 +106,4 @@ delta.buyPlane = function() {
     this.planes++
     //console.log(this.planes)
 }
-document.querySelector('.buy').addEventListener('click', delta.buyPlane.bind(delta)) // with bind, it now points the this keyword to delta
+//document.querySelector('.buy').addEventListener('click', delta.buyPlane.bind(delta)) // with bind, it now points the this keyword to delta

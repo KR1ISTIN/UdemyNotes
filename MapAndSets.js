@@ -52,7 +52,7 @@ console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
 
 // checking for a value
 console.log(rest.has('categories')); // return is true 
-console.log(rest.delete(2)); // 2 represents they key which is line 368
+console.log(rest.delete(2)); // 2 represents they key 
 
 //rest.set(document.querySelector('.hi'), 'heading'); // will return an object just an example
 

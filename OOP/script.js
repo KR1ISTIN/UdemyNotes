@@ -221,3 +221,95 @@ const student2 = new StudentClass('martha', 2012, 'math and reading');
 console.log(student2)
 student2.greet(); // due to the prototype chain, this method is found first so thats why it is overwridden from the parent class
 student2.introduce();
+
+
+
+// ---------------- Inheritance Between "classes": Object.create ----------------
+
+
+const PersonPrototype = {
+    calcAge() {
+        console.log('calcAge:', 2023 - this.birthYear)
+    },
+
+    init(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    }
+};
+
+
+// creates the parent class
+const personProto = Object.create(PersonProto);
+
+// to make student inherit directly for PersonPrototype 
+const StudentProto = Object.create(PersonPrototype);
+StudentProto.init = function(firstName, birthYear, course) {
+    PersonPrototype.init.call(this, firstName, birthYear) // .call so we canuse the this keyword
+    this.course = course
+}
+
+StudentProto.introduce = function() {
+    console.log(`This is my first name ${this.firstName} and im studying ${this.course}`)
+}
+const jay = Object.create(StudentProto);
+// so now jay will inherit from StudentProto which is a prototype of PersonPrototype 
+jay.init('Jay', 2010, 'dental anatomy');
+jay.introduce();
+jay.calcAge();
+
+// ------------ Encapsulation Examples -----------
+class Account {
+    // public fields are on every instance (not on a prototype)
+    local = navigator.language;
+    
+    // private fields cannot be accessed from the outside, # is the symbol for making it private 
+    #movements = [];
+    #pin; // in the begining it will be set to undefined, then we can redefine it when a new instance (not a prototype) is made
+    
+    constructor(owner, curr, pin) {
+        this.owner = owner;
+        this.curr = curr;
+        // protect
+        this.#pin = pin;
+        // _ is a thing to developers, protected property
+    }
+    // these methods below are all public methods 
+    
+    // get movement
+    getMovements() {
+        return this.#movements
+    }
+
+    // this about access to out public API
+    deposit(val) {
+        this.#movements.push(val)
+    }
+
+    withdraw(val) {
+        this.deposit(-val)
+    }
+
+    requestLoan(v) {
+        if(this._approveLoan(v)) {
+            this.deposit(v)
+            console.log('loan approved')
+        }
+    }
+
+    // private methods - hide details from outside, no browser suppers these right now
+    // #approveLoan(v) {
+    //     return true
+    // }
+
+}
+
+const acct1 = new Account('Jonas', 'EUR', 1111);
+console.log(acct1);
+acct1.deposit(250);
+acct1.withdraw(100);
+
+acct1.requestLoan(1000)
+
+//console.log(acct1.#movements); // not allowed to access outside
+console.log(acct1.getMovements())
