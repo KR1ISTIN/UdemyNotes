@@ -283,18 +283,23 @@ class Account {
 
     // this about access to out public API
     deposit(val) {
-        this.#movements.push(val)
+        this.#movements.push(val);
+        return this; // returning this so that we can use method chaining 
     }
 
     withdraw(val) {
-        this.deposit(-val)
+        this.deposit(-val);
+        return this;
     }
 
     requestLoan(v) {
         if(this._approveLoan(v)) {
             this.deposit(v)
-            console.log('loan approved')
+            console.log('loan approved', v)
         }
+    }
+    _approveLoan(v) {
+        return true
     }
 
     // private methods - hide details from outside, no browser suppers these right now
@@ -313,3 +318,6 @@ acct1.requestLoan(1000)
 
 //console.log(acct1.#movements); // not allowed to access outside
 console.log(acct1.getMovements())
+
+// method chaining
+acct1.deposit(300).deposit(200).withdraw(100).withdraw(50).requestLoan(25000)
