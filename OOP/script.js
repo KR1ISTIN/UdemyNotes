@@ -289,7 +289,7 @@ class Account {
 
     withdraw(val) {
         this.deposit(-val);
-        return this;
+        return this; // returning this so that we can use method chaining 
     }
 
     requestLoan(v) {
@@ -320,4 +320,5 @@ acct1.requestLoan(1000)
 console.log(acct1.getMovements())
 
 // method chaining
-acct1.deposit(300).deposit(200).withdraw(100).withdraw(50).requestLoan(25000)
+acct1.deposit(300).deposit(200).withdraw(100).withdraw(50).requestLoan(25000);
+console.log(acct1.getMovements());
