@@ -20,7 +20,10 @@ class App {
     constructor() {
         // since constructor gets created right when the page loads, a clean way to get the position right away is to call the method below
         this._getPosition(); 
-    
+        
+        // gets created right away, but not CALLED right away, await for the cb to be called
+        // need the bind method bc the this keyword on any event listener bind to what the event listener to linked to
+        // instead we need the cb function to be called on THIS class App
         form.addEventListener('submit', this._newWorkout.bind(this));
 
         inputType.addEventListener('change', this._toggleElevation);
@@ -62,7 +65,7 @@ class App {
         // when you click on the map, opens form up 
         this.#map.on('click', this._showForm.bind(this));
     }
-    
+
     _showForm(mapE) {
         this.mapEv = mapE; // reassigning the map event when clicked on map for workout location 
         form.classList.remove('hidden');
