@@ -12,52 +12,78 @@ const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
 
-let map, mapEvent;
+//let map, mapEvent;
 
-// implementing geolocation
-// will take in two arguments, the first: "onsuccess", when the browser gets the coords of the user
-// the second arg is for the error: 
-if(navigator.geolocation)
-    navigator.geolocation.getCurrentPosition(function(position) {
+class App {
+    mapEv;
+    #map;
+    constructor() {
+        // since constructor gets created right when the page loads, a clean way to get the position right away is to call the method below
+        this._getPosition(); 
+    
+        form.addEventListener('submit', this._newWorkout.bind(this));
+
+        inputType.addEventListener('change', this._toggleElevation);
+
+    }
+    
+    // getting location of user if allowed
+    _getPosition() {
+        if(navigator.geolocation)
+        // will take in two arguments, the first: "onsuccess", when the browser gets the coords of the user
+       // the second arg is for the error: 
+       // the position arg for _loadMap will then be passed once the location of the user is determined
+    
+       // we use bind bc _loadMap gets treated as a regular function call not as a method call, so we need to bind it to this class so line 50 will execute
+       navigator.geolocation.getCurrentPosition(this._loadMap.bind(this), function(){
+            alert('could not get position')
+        });
+    }
+
+    // load map of user
+    _loadMap(position) {
         console.log(position);
         // object destructuring, needs to match the object protery name 
-    const {latitude} = position.coords;
-    const {longitude} = position.coords;
-    console.log(latitude, longitude);
-    console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
+        const {latitude} = position.coords;
+        const {longitude} = position.coords;
+        console.log(latitude, longitude);
+        console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
 
-    const coords = [latitude, longitude]; // needs to be in an array bc setView/marker excepts an array value
+        const coords = [latitude, longitude]; // needs to be in an array bc setView/marker excepts an array value
 
-    // points to the html element id of map
-    map = L.map('map').setView(coords, 13);// the second arg is the zoom 
+        // points to the html element id of map, L stands for leadlet map
+        this.#map = L.map('map').setView(coords, 13);// the second arg is the zoom 
     
-    // tile is what the map is made out of, different layouts
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        // tile is what the map is made out of, different layouts
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+        }).addTo(this.#map);
 
-   // when you click on the map, opens form up 
-    map.on('click', function(mapE) {
-        mapEvent = mapE; // reassigning the map event when clicked on map
+        // when you click on the map, opens form up 
+        this.#map.on('click', this._showForm.bind(this));
+    }
+    
+    _showForm(mapE) {
+        this.mapEv = mapE; // reassigning the map event when clicked on map for workout location 
         form.classList.remove('hidden');
         inputDistance.focus();
-    })
-
-    }, function(){
-        alert('could not get position')
-    });
-
-    // after the form is submitted function 
-    form.addEventListener('submit', function(e) {
+    }
+    _toggleElevation() {
+        // will select closest parent element to inpuElevation
+        // swaps between the two inputs based on running or cycling selected
+        inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+        inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+    }
+    _newWorkout(e) {
         e.preventDefault();
-        console.log(mapEvent);
+        console.log(this.mapEv);
 
         // clear input fields
         inputDistance.value = inputDuration.value = inputCadence.value = inputDuration.value = '';
 
-        const {lat, lng} = mapEvent.latlng
+        const {lat, lng} = this.mapEv.latlng
 
-        L.marker([lat, lng]).addTo(map)
+        L.marker([lat, lng]).addTo(this.#map)
         .bindPopup(L.popup({
             maxWidth: 250,
             minWidth:100,
@@ -68,10 +94,16 @@ if(navigator.geolocation)
         }))
         .setPopupContent('workout')
         .openPopup();
-    });
+    }
+}
 
-    inputType.addEventListener('change', function() {
-        // will select closest parent element to inpuElevation
-        inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
-        inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
-    });
+// will execute when the scripts loads 
+const app = new App();
+// the constructor is automatically created when a new object is created from the class 
+// so app is created right when the page loads
+// instead of writing app._getPosition(); underneath const app = New App()
+// add this._getPosition();  within the constructor for cleaner code 
+
+
+
+   
