@@ -25,6 +25,7 @@ class Workout {
 
 // child classes below
 class Running extends Workout{
+    type = 'running';
     constructor(coords, distance, duration, cadence) {
         super(coords, distance, duration);
         this.cadence = cadence;
@@ -37,6 +38,7 @@ class Running extends Workout{
     }
 };
 class Cycling extends Workout{
+    type = 'cycling';
     constructor(coords, distance, duration, elevation) {
         super(coords, distance, duration);
         this.elevation = elevation;
@@ -91,7 +93,7 @@ class App {
         // object destructuring, needs to match the object protery name 
         const {latitude} = position.coords;
         const {longitude} = position.coords;
-        console.log(latitude, longitude);
+        //console.log(latitude, longitude);
         console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
 
         const coords = [latitude, longitude]; // needs to be in an array bc setView/marker excepts an array value
@@ -150,7 +152,7 @@ class App {
             ) return alert('Inputs have to be positive numbers')
             
         // when we make a new instance, the coords property needs to be an array, so now taking the deconstructed object from above and apply here
-        workout = new Running([lat,lng],distance,duration,cadence)
+        workout = new Running([lat,lng],distance,duration,cadence);
         }
 
         // if cycling create cycling object 
@@ -163,29 +165,28 @@ class App {
         workout = new Cycling([lat,lng],distance,duration,elevation)
         }
 
-        // add new object to workout array
+        // add new object to workout array after going through the if statements
         this.workouts.push(workout); // adding to to array
+        //console.log(workout);
+        this.rednerWorkoutMarker(workout);
 
-     
+        //clear inputs 
+        inputDistance.value = inputDuration.value = inputCadence.value = inputDuration.value = '';
+    }
 
-        L.marker([lat, lng]).addTo(this.#map)
+    // renders marker on the page
+    rednerWorkoutMarker(workout) {
+        L.marker(workout.coords).addTo(this.#map)
         .bindPopup(L.popup({
             maxWidth: 250,
             minWidth:100,
             autoClose: false,
             closeOnClick: false,
-            className: 'running-popup',
+            className: `${workout.type}-popup`,
 
         }))
-        .setPopupContent('workout')
+        .setPopupContent(`${workout.type}`)
         .openPopup();
-
-        // render on workout list
-
-        //hide form and clear inputs 
-        inputDistance.value = inputDuration.value = inputCadence.value = inputDuration.value = '';
-
-   
     }
 }
 
