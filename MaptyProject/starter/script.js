@@ -120,43 +120,55 @@ class App {
         inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
     }
     _newWorkout(e) {
-        e.preventDefault();
         console.log(this.mapEv);
+
         // checks to see is the numbers are finite or not 
         // every method loops over the array and RETURN TRUE if every input is finite 
-        const validInputs = (...inputs) => {
-            inputs.every(inp => Number.isFinite(inp))
-        }
+        const validInputs = (...inputs) => inputs.every(inp => Number.isFinite(inp));
 
+        // checks if all inputs are positive
+        const allPositive = (...inputs) => inputs.every(inp => inp > 0);
+        
+        e.preventDefault();
         // get form from data
         const type = inputType.value;
         const distance = +inputDistance.value;
         const duration = +inputDuration.value; // inputs come as string, so adding the + makes it a number
-        
+        // getting coords / already did object destructuring 
+        const {lat, lng} = this.mapEv.latlng
+
+
         // check if data is valid 
        
         // if running, cretae running object
         if(type === 'running') {
             const cadence = +inputCadence.value;
+            //console.log(distance,duration,cadence)
+            
             // if distance is NOT a number - a guard clause, checks for the opposite 
             if(
-                !validInputs(distance,duration,cadence) // if not true, show alert window
-            ) {
-                return alert('Inputs have to be positive numbers')
-            } 
-
+                !validInputs(distance,duration,cadence) || !allPositive(distance,duration,cadence)// if not true, show alert window
+            ) return alert('Inputs have to be positive numbers')
+            
+            // when we make a new instance, the coords property needs to be an array, so now taking the deconstructed object from above and apply here
+        const workout = new Running([lat,lng],distance,duration,cadence)
+            
         }
 
         // if cycling create cycling object 
         if(type === 'cycling') {
-            const elevation = +inputElevation.value;
+            const elevation = +inputElevation.value;     
+            if(
+                !validInputs(distance,duration,elevation) || !allPositive(distance,duration)// if not true, show alert window
+            ) {
+                return alert('Inputs have to be positive numbers')
+            } 
             
         }
 
         // add new object to workout array
 
-        // redner on map as marker
-        const {lat, lng} = this.mapEv.latlng
+     
 
         L.marker([lat, lng]).addTo(this.#map)
         .bindPopup(L.popup({
