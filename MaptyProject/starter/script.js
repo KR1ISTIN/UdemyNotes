@@ -11,9 +11,49 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
+// parent class
+class Workout {
+    date = new Date(); // public field
+    id = (Date.now() + '').slice(-10);
 
-//let map, mapEvent;
+    constructor(coords, distance, duration) {
+    this.coords = coords; // [lat,lng]
+    this.distance = distance; // km
+    this.duration = duration; // mins
+    }
+};
 
+// child classes below
+class Running extends Workout{
+    constructor(coords, distance, duration, cadence) {
+        super(coords, distance, duration);
+        this.cadence = cadence;
+        this.calcPace(); // will execute right away
+    }
+    calcPace() {
+        // min / km
+        this.pace = this.duration / this.distance // assigning a new property pace
+        return this.pace // return to use elsewhere in the code
+    }
+};
+class Cycling extends Workout{
+    constructor(coords, distance, duration, elevation) {
+        super(coords, distance, duration);
+        this.elevation = elevation;
+        this.speed();
+    }
+
+    speed() {
+        this.speed = this.distance / (this.duration / 60);
+        return this.speed;
+    }
+}
+
+const run1 = new Running([39, -12], 5.2, 24, 178);
+const cycle1 = new Cycling([39, -12], 27, 95, 523);
+console.log(run1,cycle1)
+
+// application acritecture class
 class App {
     mapEv;
     #map;
@@ -109,4 +149,3 @@ const app = new App();
 
 
 
-   
