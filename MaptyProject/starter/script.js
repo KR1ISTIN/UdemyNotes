@@ -59,6 +59,7 @@ console.log(run1,cycle1)
 class App {
     mapEv;
     #map;
+    workouts = [];
     constructor() {
         // since constructor gets created right when the page loads, a clean way to get the position right away is to call the method below
         this._getPosition(); 
@@ -69,7 +70,6 @@ class App {
         form.addEventListener('submit', this._newWorkout.bind(this));
 
         inputType.addEventListener('change', this._toggleElevation);
-
     }
     
     // getting location of user if allowed
@@ -136,10 +136,9 @@ class App {
         const duration = +inputDuration.value; // inputs come as string, so adding the + makes it a number
         // getting coords / already did object destructuring 
         const {lat, lng} = this.mapEv.latlng
-
+        let workout; // defining here to give access for both functions for cycle or running, used let since the workout may change
 
         // check if data is valid 
-       
         // if running, cretae running object
         if(type === 'running') {
             const cadence = +inputCadence.value;
@@ -150,9 +149,8 @@ class App {
                 !validInputs(distance,duration,cadence) || !allPositive(distance,duration,cadence)// if not true, show alert window
             ) return alert('Inputs have to be positive numbers')
             
-            // when we make a new instance, the coords property needs to be an array, so now taking the deconstructed object from above and apply here
-        const workout = new Running([lat,lng],distance,duration,cadence)
-            
+        // when we make a new instance, the coords property needs to be an array, so now taking the deconstructed object from above and apply here
+        workout = new Running([lat,lng],distance,duration,cadence)
         }
 
         // if cycling create cycling object 
@@ -160,13 +158,13 @@ class App {
             const elevation = +inputElevation.value;     
             if(
                 !validInputs(distance,duration,elevation) || !allPositive(distance,duration)// if not true, show alert window
-            ) {
-                return alert('Inputs have to be positive numbers')
-            } 
+            ) return alert('Inputs have to be positive numbers')
             
+        workout = new Cycling([lat,lng],distance,duration,elevation)
         }
 
         // add new object to workout array
+        this.workouts.push(workout); // adding to to array
 
      
 
