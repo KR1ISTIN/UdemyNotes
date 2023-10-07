@@ -89,6 +89,8 @@ class App {
         form.addEventListener('submit', this._newWorkout.bind(this));
 
         inputType.addEventListener('change', this._toggleElevation);
+
+        containerWorkouts.addEventListener('click', this.moveToPopup.bind(this))
     }
     
     // ----------------------getting location of user if allowed
@@ -268,6 +270,19 @@ class App {
             // going to add the new element as a sibling element after the form element 
             form.insertAdjacentHTML('afterend', html);
         }
+    moveToPopup(e) {
+        const workoutEl = e.target.closest('.workout'); // the element being clicked closet to the parent class workout
+        console.log(workoutEl);
+
+        if(!workoutEl) return
+
+        const workout = this.workouts.find(work => work.id === workoutEl.dataset.id);
+        //console.log(workout)
+
+        this.#map.setView(workout.coords, 13)
+
+
+    }
 }
 
 // will execute when the scripts loads 
