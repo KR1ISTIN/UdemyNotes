@@ -15,6 +15,7 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class Workout {
     date = new Date(); // public field
     id = (Date.now() + '').slice(-10);
+    clicks = 0; 
 
     constructor(coords, distance, duration) {
     this.coords = coords; // [lat,lng]
@@ -27,6 +28,10 @@ class Workout {
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${months[this.date.getMonth()]} 
         ${this.date.getDate()}`
+    }
+    click() {
+        this.clicks++;
+        console.log(this.clicks);
     }
 };
 
@@ -277,11 +282,11 @@ class App {
         if(!workoutEl) return
 
         const workout = this.workouts.find(work => work.id === workoutEl.dataset.id);
-        //console.log(workout)
+        console.log(workout)
 
-        this.#map.setView(workout.coords, 13)
+        this.#map.setView(workout.coords, 13);
 
-
+        workout.click();
     }
 }
 
