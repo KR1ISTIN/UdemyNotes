@@ -1,7 +1,7 @@
 'use strict';
 
 // prettier-ignore
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+//const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 const form = document.querySelector('.form');
 const containerWorkouts = document.querySelector('.workouts');
@@ -20,16 +20,26 @@ class Workout {
     this.coords = coords; // [lat,lng]
     this.distance = distance; // km
     this.duration = duration; // mins
+    
+    }
+    _setDescription() {
+        // months[this.date.getMonth(): explain: months is the array below, this.date is = to line 16, .getDate will return a number which will display the position from the arr months
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${months[this.date.getMonth()]} 
+        ${this.date.getDate()}`
     }
 };
 
 // child classes below
+// calling _setDescription is each class bc it needs access to the type of workout it is
 class Running extends Workout{
+    // will automatically get created
     type = 'running';
     constructor(coords, distance, duration, cadence) {
         super(coords, distance, duration);
         this.cadence = cadence;
         this.calcPace(); // will execute right away
+        this._setDescription(); 
     }
     calcPace() {
         // min / km
@@ -38,11 +48,13 @@ class Running extends Workout{
     }
 };
 class Cycling extends Workout{
+    // will automatically get created
     type = 'cycling';
     constructor(coords, distance, duration, elevation) {
         super(coords, distance, duration);
         this.elevation = elevation;
         this.speed();
+        this._setDescription(); 
     }
 
     speed() {
@@ -53,12 +65,13 @@ class Cycling extends Workout{
 
 const run1 = new Running([39, -12], 5.2, 24, 178);
 const cycle1 = new Cycling([39, -12], 27, 95, 523);
-console.log(run1,cycle1)
+//console.log(run1,cycle1)
 
 
 
-// application acritecture class
+// application arcitecture class
 class App {
+    // will automatically get created
     mapEv;
     #map;
     workouts = [];
@@ -168,14 +181,15 @@ class App {
         // add new object to workout array after going through the if statements
         this.workouts.push(workout); // adding to to array
         //console.log(workout);
-        this.rednerWorkoutMarker(workout);
+        this._rednerWorkoutMarker(workout);
+        this._renderWorkout(workout);
 
         //clear inputs 
         inputDistance.value = inputDuration.value = inputCadence.value = inputDuration.value = '';
     }
 
     // renders marker on the page
-    rednerWorkoutMarker(workout) {
+    _rednerWorkoutMarker(workout) {
         L.marker(workout.coords).addTo(this.#map)
         .bindPopup(L.popup({
             maxWidth: 250,
@@ -188,6 +202,56 @@ class App {
         .setPopupContent(`${workout.type}`)
         .openPopup();
     }
+    _renderWorkout(workout) {
+        // needs to be let so we can modifed the string with the if statement below
+        let html = `
+            <li class="workout workout--${workout.type}" data-id="${workout.id}">
+                <h2 class="workout__title">${workout.description}</h2>
+                <div class="workout__details">
+                    <span class="workout__icon">${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'}</span>
+                    <span class="workout__value">${workout.distance}</span>
+                    <span class="workout__unit">km</span>
+                </div>
+                <div class="workout__details">
+                    <span class="workout__icon">⏱</span>
+                    <span class="workout__value">${workout.duration}</span>
+                    <span class="workout__unit">min</span>
+                </div>`
+
+            if(workout.type === 'running') {
+                // .toFixed will round to fixed number with 1 decimal 
+                html+= `
+                    <div class="workout__details">
+                        <span class="workout__icon">⚡️</span>
+                        <span class="workout__value">${workout.pace.toFixed(1)}</span>
+                        <span class="workout__unit">min/km</span>
+                    </div>
+                    <div class="workout__details">
+                        <span class="workout__icon">🦶🏼</span>
+                        <span class="workout__value">${workout.cadence}</span>
+                        <span class="workout__unit">spm</span>
+                    </div>
+                </li>`
+            }
+
+            if(workout.type === 'cycling') {
+                html+= `
+                    <div class="workout__details">
+                        <span class="workout__icon">⚡️</span>
+                        <span class="workout__value">${workout.speed.toFixed(1)}</span>
+                        <span class="workout__unit">min/km</span>
+                     </div>
+                    <div class="workout__details">
+                        <span class="workout__icon">🦶🏼</span>
+                        <span class="workout__value">${workout.elevation}</span>
+                        <span class="workout__unit">spm</span>
+                    </div>
+                </li>`
+            }
+            //console.log(html)
+            // going to add the new element as a sibling element after the form element 
+            form.insertAdjacentHTML('afterend', html);
+        }
 }
 
 // will execute when the scripts loads 
