@@ -69,6 +69,10 @@ const cycle1 = new Cycling([39, -12], 27, 95, 523);
 
 
 
+
+
+
+
 // application arcitecture class
 class App {
     // will automatically get created
@@ -87,7 +91,7 @@ class App {
         inputType.addEventListener('change', this._toggleElevation);
     }
     
-    // getting location of user if allowed
+    // ----------------------getting location of user if allowed
     _getPosition() {
         if(navigator.geolocation)
         // will take in two arguments, the first: "onsuccess", when the browser gets the coords of the user
@@ -100,7 +104,7 @@ class App {
         });
     }
 
-    // load map of user
+    // ----------------------load map of user
     _loadMap(position) {
         console.log(position);
         // object destructuring, needs to match the object protery name 
@@ -122,30 +126,41 @@ class App {
         // when you click on the map, opens form up 
         this.#map.on('click', this._showForm.bind(this));
     }
-
+    // ---------------------------- show the form
     _showForm(mapE) {
         this.mapEv = mapE; // reassigning the map event when clicked on map for workout location 
         form.classList.remove('hidden');
         inputDistance.focus();
     }
+    // ---------------------------hide form 
+    hideForm() {
+        inputDistance.value = inputDuration.value = inputCadence.value = inputDuration.value = '';
+        form.style.display = 'none';
+        form.classList.add('hidden');
+        setTimeout(() => (form.style.display = 'grid'), 1000);
+        
+    }
+
+    // -------------------------- hides input field for elevation or cadence 
     _toggleElevation() {
         // will select closest parent element to inpuElevation
         // swaps between the two inputs based on running or cycling selected
         inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
         inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
     }
+
+    // ---------------------- logging info for a new workout
     _newWorkout(e) {
         console.log(this.mapEv);
-
         // checks to see is the numbers are finite or not 
         // every method loops over the array and RETURN TRUE if every input is finite 
         const validInputs = (...inputs) => inputs.every(inp => Number.isFinite(inp));
 
         // checks if all inputs are positive
         const allPositive = (...inputs) => inputs.every(inp => inp > 0);
-        
         e.preventDefault();
-        // get form from data
+
+        // get form from data \\
         const type = inputType.value;
         const distance = +inputDistance.value;
         const duration = +inputDuration.value; // inputs come as string, so adding the + makes it a number
@@ -153,8 +168,8 @@ class App {
         const {lat, lng} = this.mapEv.latlng
         let workout; // defining here to give access for both functions for cycle or running, used let since the workout may change
 
-        // check if data is valid 
-        // if running, cretae running object
+     
+             // ----------------if running, create running object
         if(type === 'running') {
             const cadence = +inputCadence.value;
             //console.log(distance,duration,cadence)
@@ -168,7 +183,7 @@ class App {
         workout = new Running([lat,lng],distance,duration,cadence);
         }
 
-        // if cycling create cycling object 
+                // --------------------if cycling create cycling object 
         if(type === 'cycling') {
             const elevation = +inputElevation.value;     
             if(
@@ -184,11 +199,11 @@ class App {
         this._rednerWorkoutMarker(workout);
         this._renderWorkout(workout);
 
-        //clear inputs 
-        inputDistance.value = inputDuration.value = inputCadence.value = inputDuration.value = '';
+        
+        this.hideForm();
     }
 
-    // renders marker on the page
+    //  -------------------------- renders marker on the page
     _rednerWorkoutMarker(workout) {
         L.marker(workout.coords).addTo(this.#map)
         .bindPopup(L.popup({
@@ -202,6 +217,7 @@ class App {
         .setPopupContent(`${workout.type}`)
         .openPopup();
     }
+    // ------------------- render workouts below form 
     _renderWorkout(workout) {
         // needs to be let so we can modifed the string with the if statement below
         let html = `
