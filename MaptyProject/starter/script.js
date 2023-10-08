@@ -86,15 +86,18 @@ class App {
     workouts = [];
     constructor() {
         // since constructor gets created right when the page loads, a clean way to get the position right away is to call the method below
-        this._getPosition(); 
         
+        // get user's position
+        this._getPosition(); 
+
+        // get data from local storage
+        this.getLocalStorage();
+
         // gets created right away, but not CALLED right away, await for the cb to be called
         // need the bind method bc the this keyword on any event listener bind to what the event listener to linked to
         // instead we need the cb function to be called on THIS class App
         form.addEventListener('submit', this._newWorkout.bind(this));
-
         inputType.addEventListener('change', this._toggleElevation);
-
         containerWorkouts.addEventListener('click', this.moveToPopup.bind(this))
     }
     
@@ -296,6 +299,12 @@ class App {
         // first param is the key, the second must be a string, so thats why we have to use JSON.stringify to help convert the obj into a str
         localStorage.setItem('workout', JSON.stringify(this.workouts));
         // never store large amounts of data in LS, it will slow down the application
+    }
+    getLocalStorage() {
+        // first is the key
+        // JSON. parse converts str back into an object
+        const data = JSON.parse(localStorage.getItem('workout'));
+        console.log(data)
     }
 }
 
