@@ -206,8 +206,12 @@ class App {
         this._rednerWorkoutMarker(workout);
         this._renderWorkout(workout);
 
-        
         this.hideForm();
+
+        // set local storage to all workouts
+        this.setLocalStorage();
+
+
     }
 
     //  -------------------------- renders marker on the page
@@ -287,6 +291,11 @@ class App {
         this.#map.setView(workout.coords, 13);
 
         workout.click();
+    }
+    setLocalStorage() {
+        // first param is the key, the second must be a string, so thats why we have to use JSON.stringify to help convert the obj into a str
+        localStorage.setItem('workout', JSON.stringify(this.workouts));
+        // never store large amounts of data in LS, it will slow down the application
     }
 }
 
