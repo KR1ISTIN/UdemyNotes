@@ -323,6 +323,12 @@ class App {
         // ** side note: when getting a obj from local storage, objs will not inhereit all the methods that they did before
         // thats why workouts.click() states its not a function after the page refreshes 
     }
+
+    // for practice in console
+    reset() {
+        localStorage.removeItem('workout');
+        location.reload();
+    }
 }
 
 // will execute when the scripts loads 
