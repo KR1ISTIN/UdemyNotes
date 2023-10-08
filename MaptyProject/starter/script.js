@@ -135,6 +135,11 @@ class App {
 
         // when you click on the map, opens form up 
         this.#map.on('click', this._showForm.bind(this));
+
+        // the position of the user and the map needs to be loaded first before fetching data for local storage to rerender markers on map, thats why its not being called in the getLocalStorage method
+        this.workouts.forEach(w => {
+            this._rednerWorkoutMarker(w);
+        });
     }
     // ---------------------------- show the form
     _showForm(mapE) {
@@ -310,10 +315,13 @@ class App {
 
         // when user reloads page, LS data will stay be present, but the workouts array will be empty, so here we are storing the data that was origianlly created and pushing it back into the array 
         // so then the workouts will stay logged on the left side of the page
-        this.workouts = data; 
+        this.workouts = data;  
         this.workouts.forEach(w => {
             this._renderWorkout(w);
         });
+
+        // ** side note: when getting a obj from local storage, objs will not inhereit all the methods that they did before
+        // thats why workouts.click() states its not a function after the page refreshes 
     }
 }
 
