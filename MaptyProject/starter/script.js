@@ -304,7 +304,16 @@ class App {
         // first is the key
         // JSON. parse converts str back into an object
         const data = JSON.parse(localStorage.getItem('workout'));
-        console.log(data)
+        console.log(data);
+
+        if(!data) return;
+
+        // when user reloads page, LS data will stay be present, but the workouts array will be empty, so here we are storing the data that was origianlly created and pushing it back into the array 
+        // so then the workouts will stay logged on the left side of the page
+        this.workouts = data; 
+        this.workouts.forEach(w => {
+            this._renderWorkout(w);
+        });
     }
 }
 
