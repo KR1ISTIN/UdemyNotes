@@ -75,6 +75,23 @@ getData('usa')
 const getDATA = function(c) {
     fetch(`https://restcountries.com/v3.1/name/${c}`)
         .then(res => res.json())
-        .then(data => console.log(data));
+        .then(data => console.log('arrow function promise', data));
 };
 getDATA('usa');
+
+// ------------- promise chaining 
+const getD = function(c) {
+    fetch(`https://restcountries.com/v3.1/name/${c}`)
+        .then(res => res.json())
+        .then(data => {
+            //console.log(data);
+            const neighbor = data[0].borders[0];
+
+            if(!neighbor) return
+            
+            return fetch(`https://restcountries.com/v3.1/alpha/${neighbor}`);
+        })
+        .then(dataResp => dataResp.json())
+        .then(results => console.log('promise chaining:', results));
+};
+getD('usa');
