@@ -80,6 +80,10 @@ const getDATA = function(c) {
 getDATA('usa');
 
 // ------------- promise chaining / error handling
+const renderErr = function(msg) {
+    countriesContainer.insertAdjacentText('beforeend', msg);
+    //countriesContainer.style.opacity = 1;
+};
 // for error handing uncaught promise:
     // either pass a second CB function into the then method, the first CB will be always for the fulfilled promise, the second CB is for when the promise is rejected
     // OR second option: add a .catch() at the end of the chain 
@@ -94,9 +98,16 @@ const getD = function(c) {
             
             return fetch(`https://restcountries.com/v3.1/alpha/${neighbor}`); // returning a promise
         })
-        .then(dataResp => dataResp.json())
+        .then(dataResp => dataResp.json()) // .then will run if promise is fulfilled
         .then(results => console.log('promise chaining:', results))
-        .catch( err => console.error(err))
+        .catch( err => { // will only run if promise is rejected
+            console.error(err);
+            renderErr(`something went wrong ${err}`);
+        })
+        // .finally will always fun no matter if fulfilled or err happens 
+        .finally(() => {
+            countriesContainer.style.opacity = 1;
+        })
 };
 
 btn.addEventListener('click', function() {
