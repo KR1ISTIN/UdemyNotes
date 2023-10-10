@@ -69,3 +69,12 @@ const getData = function(country) {
 };
 
 getData('usa')
+
+// simplifed with arrow functions
+
+const getDATA = function(c) {
+    fetch(`https://restcountries.com/v3.1/name/${c}`)
+        .then(res => res.json())
+        .then(data => console.log(data));
+};
+getDATA('usa');
