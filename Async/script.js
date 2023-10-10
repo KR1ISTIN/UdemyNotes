@@ -79,19 +79,24 @@ const getDATA = function(c) {
 };
 getDATA('usa');
 
-// ------------- promise chaining 
+// ------------- promise chaining / error handling
+// for error handing uncaught promise:
+    // either pass a second CB function into the then method, the first CB will be always for the fulfilled promise, the second CB is for when the promise is rejected
 const getD = function(c) {
     fetch(`https://restcountries.com/v3.1/name/${c}`)
-        .then(res => res.json())
+        .then(res => res.json(), err => alert(err))
         .then(data => {
             //console.log(data);
             const neighbor = data[0].borders[0];
 
             if(!neighbor) return
             
-            return fetch(`https://restcountries.com/v3.1/alpha/${neighbor}`);
+            return fetch(`https://restcountries.com/v3.1/alpha/${neighbor}`); // returning a promise
         })
         .then(dataResp => dataResp.json())
         .then(results => console.log('promise chaining:', results));
 };
-getD('usa');
+
+btn.addEventListener('click', function() {
+    getD('usa');
+});
