@@ -35,3 +35,22 @@ request.addEventListener('load', function() {
 })};
 
 getCountryData('usa');
+
+//  ------------------------- FETCHING Data with PROMISES 
+ 
+
+const getData = function(country) {
+    //  .then() will return a promise, to get data from the promise use .then method, then it needs a CB function for when the promise is actually fulfilled 
+    // the function will take a arg which will contain the data that was fulfilled by that promise 
+    fetch(`https://restcountries.com/v3.1/name/${country}`)
+        .then(function(response) {
+            console.log(response);
+            //response.json(); // .json() is a async function which will also return a promise so we need to use a return to then use another .then()
+            return response.json();
+
+        }).then(function(data) {
+            console.log(data)
+        })
+};
+
+getData('usa')
