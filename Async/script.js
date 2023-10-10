@@ -82,6 +82,7 @@ getDATA('usa');
 // ------------- promise chaining / error handling
 // for error handing uncaught promise:
     // either pass a second CB function into the then method, the first CB will be always for the fulfilled promise, the second CB is for when the promise is rejected
+    // OR second option: add a .catch() at the end of the chain 
 const getD = function(c) {
     fetch(`https://restcountries.com/v3.1/name/${c}`)
         .then(res => res.json(), err => alert(err))
@@ -94,7 +95,8 @@ const getD = function(c) {
             return fetch(`https://restcountries.com/v3.1/alpha/${neighbor}`); // returning a promise
         })
         .then(dataResp => dataResp.json())
-        .then(results => console.log('promise chaining:', results));
+        .then(results => console.log('promise chaining:', results))
+        .catch( err => console.error(err))
 };
 
 btn.addEventListener('click', function() {
