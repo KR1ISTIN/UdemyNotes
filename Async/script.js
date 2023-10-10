@@ -49,7 +49,22 @@ const getData = function(country) {
             return response.json();
 
         }).then(function(data) {
-            console.log(data)
+            //console.log(data)
+            const [datA] = data
+            let html = `
+            <article class="country">
+                <img class="country__img" src="${datA.flags.png}" />
+                <div class="country__data">
+                    <h3 class="country__name">${datA.name.common}</h3>
+                    <h4 class="country__region">${datA.region}</h4>
+                    <p class="country__row"><span>👫</span>${(+datA.population / 1000000).toFixed(1)}</p>
+                    <p class="country__row"><span>🗣️</span>${datA.languages.eng}</p>
+                    <p class="country__row"><span>💰</span>${datA.currencies.USD.name}</p>
+                </div>
+            </article>`;
+    
+            countriesContainer.insertAdjacentHTML('beforeend', html);
+            countriesContainer.style.opacity = 1; 
         })
 };
 
