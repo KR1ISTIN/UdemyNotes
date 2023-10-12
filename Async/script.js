@@ -123,14 +123,35 @@ const lotteryPromise = new Promise(function(resolve, reject) {
     // the function will contain async behavior we are trying to handle with the promise
     // so this function will hold value for the future promise value 
 
-    // if a fullfilled promise 
-    if(Math.random() >= 0.5) {
-        resolve('YOU WIN!'); // calling resolve() will mark this as a fulfilled promise 
-        // whatever we pass into the resolve method, its going to be the result of the promise that will be avaiable in the THEN handler
-    } else {
-        reject('YOU looooooost'); // you then pass in the error message you want to be able to handle in the CATCH handler
-    }
+    console.log('lottery Draw is happening...')
+
+    // capturing async behavior into a promise 
+    setTimeout(function() {
+        // if a fullfilled promise 
+        if(Math.random() >= 0.5) {
+            resolve('YOU WIN!'); // calling resolve() will mark this as a fulfilled promise 
+            // whatever we pass into the resolve method, its going to be the result of the promise that will be avaiable in the THEN handler
+        } else {
+            reject(new Error('YOU looooooost')); // you then pass in the error message you want to be able to handle in the CATCH handler
+        }
+    }, 2000)
 });
 
 // lotteryPromise is going to return a promise so you can use the .then()
 lotteryPromise.then(res => console.log(res)).catch(err => console.log(err));
+
+// promisifying 
+const wait = function(seconds) {
+    // dont need a reject params bc the setTimeout will never fail 
+    return new Promise(function(resolve) {
+        setTimeout(resolve, seconds * 1000);
+    });
+};
+
+// this will call a promise that will wait for 2 secs then resolve 
+wait(2).then(() => {
+    console.log('waited 2 secs ');
+    return wait(1); // basically calling another fetch which again returns a new promise 
+}).then(() => {
+    console.log('waited for another second')
+}); 
