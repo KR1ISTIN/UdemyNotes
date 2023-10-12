@@ -113,3 +113,22 @@ const getD = function(c) {
 btn.addEventListener('click', function() {
     getD('usa');
 });
+
+
+// ------------------ building promises
+
+// the promise constructor will take in one arg known as the executer 
+// when the constructor runs it will automaticlly execute the exuter function 
+const lotteryPromise = new Promise(function(resolve, reject) {
+    // the function will contain async behavior we are trying to handle with the promise
+    // so this function will hold value for the future promise value 
+
+    // if a fullfilled promise 
+    if(Math.random() >= 0.5) {
+        resolve('YOU WIN!'); // calling resolve() will mark this as a fulfilled promise 
+        // whatever we pass into the resolve method, its going to be the result of the promise that will be avaiable in the THEN handler
+    } else {
+        reject('YOU looooooost'); // you then pass in the error message you want to be able to handle in the CATCH handler
+    }
+});
+
