@@ -132,3 +132,5 @@ const lotteryPromise = new Promise(function(resolve, reject) {
     }
 });
 
+// lotteryPromise is going to return a promise so you can use the .then()
+lotteryPromise.then(res => console.log(res)).catch(err => console.log(err));
