@@ -167,7 +167,10 @@ const whereAmI = async function(country) {
     // so the await fetch will not stop any other code from executing 
     const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
     // so now res will will hold the result of the promise that was fulfilled 
-    console.log('------------result of async and await', res)
+    console.log('------------result of async and await', res);
+    // .json turns res into a json which returns a promise, so we can add another await to it instead of a .then()
+     const data = await res.json();
+     console.log('-----------------', data)
 };
 whereAmI('usa'); // being called first but the console.log will run before the function above
 console.log('first, this is an example to show that its working asynchronously');
