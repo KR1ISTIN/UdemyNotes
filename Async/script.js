@@ -155,3 +155,19 @@ wait(2).then(() => {
 }).then(() => {
     console.log('waited for another second')
 }); 
+
+// ------------ async and await promises 
+
+// now its a async function that will be running in the background while performing the code thats inside of it and when its done it will return a promise
+const whereAmI = async function(country) {
+    // inside async functions, we can one or more await statements 
+    // await needs a promise, so for example here we will use fetch again 
+    // the function will stop at the await and will not proceed until promise is fulfilled 
+    // but bc it is inside a ASYNC function, the rest of the code will still be ran within the block,
+    // so the await fetch will not stop any other code from executing 
+    const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+    // so now res will will hold the result of the promise that was fulfilled 
+    console.log('------------result of async and await', res)
+};
+whereAmI('usa'); // being called first but the console.log will run before the function above
+console.log('first, this is an example to show that its working asynchronously');
