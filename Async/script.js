@@ -175,7 +175,8 @@ const whereAmI = async function(country) {
      return `This is that data being returned: ${data[0].name.common}`;
 };
 // if you want to return data from a promise using async and await, you can get the data by the ex below:
-whereAmI('usa').then(data => console.log(`${data}`)); // will be the result of the fulfilled promise above
+whereAmI('usa').then(data => console.log(` ${data}`)).catch(err => console.error(err)); // will be the result of the fulfilled promise above
 
-// without the return statement / whereAmI('usa'); // being called first but the console.log will run before the function above
+// without the return statement, whereAmI('usa'); // being called first but the console.log will run before the function above
 console.log('first, this is an example to show that its working asynchronously');
+
