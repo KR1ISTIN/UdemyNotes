@@ -11,3 +11,9 @@ export const addToCart = function(product, quant) {
     cart.push({product, quant});
     console.log(`${quant} ${product} was added to the cart`)
 };
+
+const totalPrice = 237;
+const totalQuant = 23; 
+
+// exporting multi values example 
+export {totalPrice, totalQuant}
