@@ -18,3 +18,10 @@ console.log('importing');
 
 ShoppingCart.addToCart('bread', 10);
 console.log(ShoppingCart.totalPrice, ShoppingCart.totalQuant);
+
+
+// ------------------ importing the exported default example ----------------\\
+// use can give it any import name you want 
+
+//import add from './shoppingCart.js'
+// add('pizza', 2);

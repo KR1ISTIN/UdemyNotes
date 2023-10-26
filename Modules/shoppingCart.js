@@ -17,3 +17,13 @@ const totalQuant = 23;
 
 // exporting multi values example 
 export {totalPrice, totalQuant}
+
+
+// ------------------ export default example ------------------
+
+// when you want to use the export default, you typically use this when you want to export one thing per module 
+
+// export default function(product, quant) {
+//     cart.push({product, quant});
+//     console.log(`${quant} ${product} was added to the cart`)
+// };
