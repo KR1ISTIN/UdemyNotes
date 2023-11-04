@@ -3,7 +3,7 @@ console.log('exporting');
 // all variables will be scopped to their module, which is like the top level scope
 // all top level variables are privates 
 const shippingCost = 10;
-const cart = [];
+export const cart = [];
 
 // named export example 
 // all exports need to happen at top level code
@@ -27,3 +27,4 @@ export {totalPrice, totalQuant}
 //     cart.push({product, quant});
 //     console.log(`${quant} ${product} was added to the cart`)
 // };
+
