@@ -44,7 +44,7 @@ console.log(ShoppingCart.cart);
 // async will always return a promise, which is what getLastPost will be equal too 
 const getLastPost = async function() {
     const getData = await fetch('https://jsonplaceholder.typicode.com/posts');
-const data = await getData.json();
+    const data = await getData.json();
 
 return {
     // very last element of array 
