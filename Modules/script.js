@@ -31,7 +31,7 @@ console.log(ShoppingCart.cart);
 
 
 // TOP LEVEL AWAIT example
-// blocks the excution of model, lines  38 and 42, 
+// blocks the excution of module, lines  38 and 42, 
 // bc js can work async top level code should be exucuted first, but with await it blocks it unitl its finished
 // line 38 and 40 should be excuted first 
 

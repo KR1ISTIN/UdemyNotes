@@ -2,7 +2,7 @@
 // ------------------ CONSTRUCTOR FUNCTIONS -------------- 
 
 // usually constructor functions start with a capital letter
-// you cannot use arrow functions for this, bc arrow functions dont have its own this keyword, we we need it 
+// you cannot use arrow functions for this, bc arrow functions dont have its own this keyword, we need it 
 const Person = function(firstName, birthYear) {
     //console.log(this);
 
@@ -10,16 +10,18 @@ const Person = function(firstName, birthYear) {
     this.firstName = firstName;
     this.birthYear = birthYear;
 
-}
+};
+// creating a instance
 const person1 = new Person('Kristin', 1994);
-console.log(person1)
+console.log(person1);
 
 // static method example:
 Person.hey = function() {
     console.log('heeeey heeeey');
-    console.log(this)
+    console.log(this);
 };
 Person.hey(); // this is an example of a static method, its on the Person object itself 
+// static methods are not passed down to the instances created
 // person1.hey(); // will not work bc it is not in the prototype in the person1 object
 
 
@@ -47,7 +49,7 @@ Person.prototype.species = 'human';
 console.log(person1.species, person1);
 
 // ---------------- ES6 CLASSES ---------------
-// class expression example
+// class expression example below:
 // const p = class {
 
 // }
@@ -60,11 +62,11 @@ class PersonCl {
     }
     // methods will be added to .prototype property to the PersonCl class
     calcAge() {
-        console.log('calcAge:', 2023 - this.birthYear)
+        console.log('calcAge:', 2023 - this.birthYear);
     }
 
     greet() {
-        console.log(`hey ${this.fullName}`)
+        console.log(`hey ${this.fullName}`);
     }
 
     get age() {
@@ -92,10 +94,10 @@ const person3 = new PersonCl('Briley BRI', 2020);
 console.log(person3);
 person3.calcAge();
 
-PersonCl.hey()
+PersonCl.hey();
 
 
-// this or you can do line 56 instead and works the sameway 
+// this or you can do line 68 instead and works the sameway 
 // PersonCl.prototype.greet = function() {
 //     console.log(`hey ${this.firstName}`)
 // };
@@ -186,7 +188,7 @@ class PersonClass {
         this.fullName = fullName; // whatever we pass will be set
         this.birthYear = birthYear
     }
-    // methods will be added to .prototype property to the PersonCl class
+    // methods will be added to .prototype property to the PersonClass class
     calcAge() {
         console.log('calcAge:', 2023 - this.birthYear)
     }
@@ -245,7 +247,7 @@ const personProto = Object.create(PersonProto);
 // to make student inherit directly for PersonPrototype 
 const StudentProto = Object.create(PersonPrototype);
 StudentProto.init = function(firstName, birthYear, course) {
-    PersonPrototype.init.call(this, firstName, birthYear) // .call so we canuse the this keyword
+    PersonPrototype.init.call(this, firstName, birthYear) // .call so we can use the this keyword
     this.course = course
 }
 
