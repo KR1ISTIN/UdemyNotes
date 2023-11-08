@@ -49,7 +49,7 @@ const getData = function(country) {
             return response.json();
 
         }).then(function(data) {
-            //console.log(data)
+            console.log(data)
             const [datA] = data
             let html = `
             <article class="country">
@@ -166,7 +166,7 @@ const whereAmI = async function(country) {
     // but bc it is inside a ASYNC function, the rest of the code will still be ran within the block,
     // so the await fetch will not stop any other code from executing 
     const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
-    // so now res will will hold the result of the promise that was fulfilled 
+    // so now res  will hold the result of the promise that was fulfilled 
     //console.log('------------result of async and await', res);
     
     // .json turns res into a json which returns a promise, so we can add another await to it instead of a .then()
@@ -174,9 +174,12 @@ const whereAmI = async function(country) {
      //console.log('-----------------', data);
      return `This is that data being returned: ${data[0].name.common}`;
 };
-// if you want to return data from a promise using async and await, you can get the data by the ex below:
-whereAmI('usa').then(data => console.log(` ${data}`)).catch(err => console.error(err)); // will be the result of the fulfilled promise above
 
+//console.log(whereAmI('usa')); // promise is pending, see line 181 to get data from promised
+
+// if you want to return data from a promise using async and await, you can get the data by the ex below:
+whereAmI('usa').then(data => console.log(` THIS IS THE DATA ---> ${data}`)).catch(err => console.error(err)); // will be the result of the fulfilled promise above
 // without the return statement, whereAmI('usa'); // being called first but the console.log will run before the function above
+
 console.log('first, this is an example to show that its working asynchronously');
 

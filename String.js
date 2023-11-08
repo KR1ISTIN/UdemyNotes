@@ -5,10 +5,10 @@ const plane = 'A320';
 console.log(airplane.indexOf('T')); // prints 0 (the position in the array includes spacing)
 console.log(airplane.lastIndexOf('a'));// prints the last occurance of the value, 11
 console.log(airplane.slice(4)); // extracts everything after from position 4, prints Air Texas // if you want to use this it returns a new string and save it to a variable
-console.log(airplane.slice(4, 7)); // it stops extracting before if reaches 7, prints - Air
+console.log(airplane.slice(4, 7)); // it stops extracting before it reaches 7, prints - Air
 
-console.log(airplane.slice(0, airplane.indexOf(' '))); // starts at posotion 0, and end at empty string
-console.log(airplane.slice(airplane.lastIndexOf(' ') +1 )); // will extract everything after the last empty string, but have to add a + 1 to get rid of the space is prints
+console.log(airplane.slice(0, airplane.indexOf(' ')), 'line 10'); // starts at position 0, and end at empty string
+console.log(airplane.slice(airplane.lastIndexOf(' ') +1)); // will extract everything after the last empty string (includes the space before Texas), but have to add a + 1 to get rid of the space is prints
 
 // if you place a negitive, it'll start extracting from the end of the string 
 
@@ -30,7 +30,7 @@ checkMiddleSeat('22E');
 // fixing capitalization example below:
 const passenger = 'JoNaS';
 const passLower = passenger.toLowerCase();
-console.log(passLower)
+console.log(passLower);
 const passCorrect = passLower[0].toUpperCase() + passLower.slice(1); // takes the lower case of jonas at positon 0 and turn
 // it to an uppercase J, 
 //then slice the name at position 1 and it will extract everything AFTER postion 1
@@ -63,7 +63,7 @@ console.log(accountment.replace(/door/g, 'gate'));// door is still a str but the
 console.log('a+very+nice+string'.split('+')); // ['a', 'very', 'nice', 'string']
 
 // you can use this method to create variables with destructuring
-const [firstName, lastName] = 'kristin desalme'.split(' ');
+const [firstName, lastName] = 'kristin desalme'.split(' '); // returns a arr but destructuring it 
 console.log(`Mrs. ${firstName} ${lastName}`); // Mrs. kristin desalme
 
 // OR you can use the join method if you need to add elements to the str
@@ -74,16 +74,18 @@ console.log(newName); // Mrs kristin DESALME
 
 const capitalLetter = function(name) {
     const names = name.split(' '); // splits at spaces and returns an array
-    console.log(names)
+    console.log('line 77', names)
     const newNameArray = [];
     
     
     for(const n of names) {
+        console.log(n[0]);
         // take empty array and push new value 
         // n represents each value in the array
         // so in each value take the 0 index (otherwords first letter) and make it an uppercase
         // then take that same value and slice it at index 1 which will extract everything after index 1 and combone the two expressions
-        newNameArray.push(n[0].toUpperCase() + n.slice(1))
+        newNameArray.push(n[0].toUpperCase() + n.slice(1));
+       
         
         // another way to write line 85
         // newNameArray.push(n.replace(n[0], n[0].toUpperCase()));

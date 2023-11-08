@@ -248,7 +248,7 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 let arr = ['a','b', 'c', 'd','e'];
 
-// slice
+// slice - makes new array 
 console.log(arr.slice(2)); // grabs everything at position 2 and on
 console.log(arr.slice(2, 4)); // grabs everything at position 2 and up to but does not include postion 4 
 // can also use negitives to go backwards 
@@ -257,8 +257,8 @@ console.log(arr.slice(-1));
 console.log(arr.slice(1, -2));
 
 //splice
-// alters the original array 
-//console.log(arr.splice(2)); //looks like line 81, so it extracts (gets rid of) everything at posotion 2 and on 
+// ALTERS the original array 
+//console.log(arr.splice(2)); // so it extracts (gets rid of) everything at posotion 2 and on 
 arr.splice(-1); // gets rid of the last index
 arr.splice(1, 2); // the first parameter represents the starting index, the seond param represents how many to delete 
 console.log(arr); 
@@ -282,12 +282,12 @@ console.log(letters.join(' - '));
 // New AT methods
 // can be used on strings too 
 const arr3 = [11,22,23];
-console.log(arr3[0]);
-console.log(arr3.at(0));
+console.log(arr3[0]); // 11
+console.log(arr3.at(0)); // 11
 
 // getting last element
-console.log(arr3[arr3.length -1]); 
-console.log(arr3.slice(-1)[0]);
+console.log(arr3[arr3.length -1]);  // 23
+console.log(arr3.slice(-1)[0]); // 23
 
 //instead do this:
 console.log(arr3.at(-1));
@@ -342,6 +342,7 @@ const curr2 = new Map([
   ['EUR', 'Euro'],
   ['GBP', 'Pound sterling'],
 ]);
+console.log(curr2);
 
 curr2.forEach(function(value, key, map) {
   console.log(`${key}, ${value}`)

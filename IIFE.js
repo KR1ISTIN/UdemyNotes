@@ -8,4 +8,4 @@
 
 (() => console.log('will NEVER run again'))();  // arrow functions can also be wrapped in a IIFE
 
-// can be used to hide variables 
+// can be used to hide variables

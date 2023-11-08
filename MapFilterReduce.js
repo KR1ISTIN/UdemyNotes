@@ -103,11 +103,11 @@ console.log(fistWithdraw);
 // ----------------------- Some method vs Includes method -------------- \\
 
 // checks to equality, just to check if it includes value 
-console.log('line 106', movements.includes(-130));
+console.log('line 106', movements.includes(-130)); //boolean
 
 // can input a condition
 const some = movements.some(m => m > 0);
-console.log('line 110', some); 
+console.log('line 110', some);  // boolean 
 
 // ----------- Every method ----------- \\
 // only returns true if all elements meet the condition 
@@ -122,7 +122,7 @@ console.log('line 120', movements.filter(cb));
 
 // ------------------- flat vs flatMap methods -------------------- \\
 
-// Flat will go only one level deep to create one array, does not modity original array
+// Flat will go only one level deep to create one array, does not modifiy original array
 const a = [[1,2], 3,4, [5,6]];
 console.log(a.flat()); 
 console.log(a);

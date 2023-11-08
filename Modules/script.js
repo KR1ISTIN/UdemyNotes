@@ -28,15 +28,13 @@ console.log(ShoppingCart.cart);
 //import add from './shoppingCart.js'
 // add('pizza', 2);
 
-
-
 // TOP LEVEL AWAIT example
 // blocks the excution of module, lines  38 and 42, 
 // bc js can work async top level code should be exucuted first, but with await it blocks it unitl its finished
 // line 38 and 40 should be excuted first 
 
-// console.log('start fetch');
-// const getData = await fetch('https://jsonplaceholder.typicode.com/posts');
+//  console.log('start fetch');
+//  const getData = await fetch('https://jsonplaceholder.typicode.com/posts');
 // const data = await getData.json();
 // console.log(data);
 // console.log('end fetch');

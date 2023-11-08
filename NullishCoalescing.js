@@ -1,6 +1,6 @@
 //------------------------- Nullish Coalescing Operator (??)---------------------\\
 
-// the example below bc of short circuit, the || (or) operator will look for the first thruthy value,
+// the example below bc of short circuit, the || (or) operator will look for the first truthy value,
 //so bc 0 is a falsey value, it will default to 10,
 //but if you actually know the value of guest is 0,
 //use the Nullish Coalescing Operator, Nullish values are null or undefined

@@ -4,8 +4,8 @@
 const bookingArr = [];
 
 const createBooking = function( flightNum, numPassengers = 1 , price = 199 * numPassengers){
-   
-    // creating an object with the parameters passed
+    // creating an object with the parameters passed for defaults
+
     const booking = {
         flightNum,
         numPassengers,
@@ -15,7 +15,7 @@ const createBooking = function( flightNum, numPassengers = 1 , price = 199 * num
     bookingArr.push(booking )
 }
 
-createBooking('LH123') // if you try to pass one argument and not the rest, the values will be undefined withing the object created booking
+createBooking('LH123') // if you try to pass one argument and not the rest, the values will be undefined within the object created booking
 // need default parameters and can contain any expression
 
 // overdriding default values

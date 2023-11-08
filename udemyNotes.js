@@ -25,19 +25,19 @@ const restaurant = {
   starterMenu: ["Focaccia", "Brushcetta", "Salad", "Garlic bread"],
   mainMenu: ["Pizza", "Spahgetti", "Risotto"],
   openingHours,
-    hours: {
+  hours: {
       thru: {
           open: 12,
           close: 22
-  },
+       },
       fri: {
           open: 11,
           close: 23
-  },
+      },
       sat: {
           open: 0,
           close: 3
-  }
+      }
   },
   // with new es6 syntax you can get rid of the word function 
   order(startedIndex, mainIndex) {
@@ -193,9 +193,9 @@ console.log('line 192', newRest);
 
 // Making a Copy and changing the restaurant name
 const restaurantCopy = { ...restaurant };
-restaurantCopy.name = "New Name coming soon";
+restaurantCopy.name = "New Name coming soon"; // changing name on the copy 
 console.log(restaurantCopy.name); // New Name coming soon
-console.log(restaurant.name); // "Mama Mia"
+console.log(restaurant.name); // "Mama Mia" didnt effect main obj 
 
 // Rest Pattern with the spread operator (to collect elements that are unused in the destructuring assignment )
 const [a, h, ...others] = [1, 2, 3, 4, 5, 6];
@@ -284,17 +284,16 @@ for (const day of properties) {
 }
 console.log('line 285', openStr); // we are open 3 days: ${day}
 
-// getting propety values
+// getting propety values , returns an array 
 const values = Object.values(openingHours);
 console.log('line 289', values); // prints an array of the object values of each property for the days
 
 //entire object
-const entries = Object.entries(openingHours);
-console.log(entries); // prints an array
+const entries = Object.entries(openingHours); // 
+console.log(entries); // prints an array key and values printed
 
 // prints key and value
 for (const [day, { open, close }] of entries) {
-  console.log(x); // prints an array of each property and its value
   console.log(`on ${day} we open at ${open} and close at ${close}`); // prints property and value in a str
 }
 

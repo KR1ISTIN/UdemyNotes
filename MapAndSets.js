@@ -39,7 +39,7 @@ rest.set('name', 'Pesto Italian'); // .set is like add to the map that was inita
 // name is the key and pesto italian is the value
 rest.set(1, 'san antonio,tx');
 rest.set(2, 'dallas,tx');
-// .set also returns the newly updated map whic means we can chain, example below:
+// .set also returns the newly updated map which means we can chain, example below:
 rest.set('categories', ["Focaccia", "Brushcetta", "Salad", "Garlic bread"]).set('open', 11).set('close', 3).set(true, 'we are open').set(false, 'we are closed');
 // get get data from a map, we use the "get" method example below:
 console.log(rest.get('name')); // prints Pesto Italian
