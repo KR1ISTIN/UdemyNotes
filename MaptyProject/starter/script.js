@@ -36,12 +36,12 @@ class Workout {
 };
 
 // child classes below
-// calling _setDescription is each class bc it needs access to the type of workout it is
+// calling _setDescription on each class bc it needs access to the type of workout it is
 class Running extends Workout{
     // will automatically get created
     type = 'running';
     constructor(coords, distance, duration, cadence) {
-        super(coords, distance, duration);
+        super(coords, distance, duration); // from parent class
         this.cadence = cadence;
         this.calcPace(); // will execute right away
         this._setDescription(); 
@@ -61,7 +61,6 @@ class Cycling extends Workout{
         this.speed();
         this._setDescription(); 
     }
-
     speed() {
         this.speed = this.distance / (this.duration / 60);
         return this.speed;
@@ -71,10 +70,6 @@ class Cycling extends Workout{
 const run1 = new Running([39, -12], 5.2, 24, 178);
 const cycle1 = new Cycling([39, -12], 27, 95, 523);
 //console.log(run1,cycle1)
-
-
-
-
 
 
 
@@ -108,7 +103,7 @@ class App {
        // the second arg is for the error: 
        // the position arg for _loadMap will then be passed once the location of the user is determined
     
-       // we use bind bc _loadMap gets treated as a regular function call not as a method call, so we need to bind it to this class so line 50 will execute
+       // we use bind bc _loadMap gets treated as a regular function call not as a method call, so we need to bind it to this class 
        navigator.geolocation.getCurrentPosition(this._loadMap.bind(this), function(){
             alert('could not get position')
         });
@@ -117,7 +112,7 @@ class App {
     // ----------------------load map of user
     _loadMap(position) {
         console.log(position);
-        // object destructuring, needs to match the object protery name 
+        // object destructuring, needs to match the object property name 
         const {latitude} = position.coords;
         const {longitude} = position.coords;
         //console.log(latitude, longitude);
@@ -169,7 +164,8 @@ class App {
         console.log(this.mapEv);
         // checks to see is the numbers are finite or not 
         // every method loops over the array and RETURN TRUE if every input is finite 
-        const validInputs = (...inputs) => inputs.every(inp => Number.isFinite(inp));
+        const validInputs = (...inputs) => inputs.every(inp => Number.isFinite(inp), console.log(inputs));
+        
 
         // checks if all inputs are positive
         const allPositive = (...inputs) => inputs.every(inp => inp > 0);

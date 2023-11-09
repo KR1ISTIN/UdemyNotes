@@ -48,12 +48,12 @@ console.log(5 / 2); // basically what is happening in line 46
 
 // function to check if a num is even or odd
 const isEven = n => n % 2 === 0;
-console.log('line 51', isEven(8));
-console.log('line 52', isEven(23));
+console.log('line 51', isEven(8)); // true even
+console.log('line 52', isEven(23)); // odd
 
 console.log('-----------------Numeric Seperators---------------');
 
-const diameter = 12_333_000_066; // this number is hard to read
+const diameter = 12_333_000_066; // this number is hard to read (without underscores)
 console.log(diameter);// the underscores help to read the number but the console does not read it what way
 
 console.log('----------------Working with BIGINTS-------------------');
@@ -79,7 +79,7 @@ console.log('line 77', 28n == 28); // true bc is loosely equal
 
 console.log(11n / 3n); // will get rid of the remainder
 console.log(11 / 3);
-console.log(huge + 'this is a big number');
+console.log(huge + ' this is a big number');
 
 console.log('------------Creating Dates------------');
 
@@ -87,7 +87,7 @@ const now = new Date();
 console.log(now);
 
 console.log('------------Creating Timers------------');
-// setInterval: timers runs forever until we stop it 
+// setInterval: timers run forever until we stop it 
 // setTimeOut: runs once after a set defined time
 
 // setTimeout takes two arguments, the first arg is the cb function and runs once
@@ -105,8 +105,8 @@ if(ingredients.includes('ham')) clearTimeout(timer);
 //setInterval
 setInterval(function() {
     const now = new Date();
-    console.log(now)
-}, 1000)
+    console.log(now);
+}, 1000);
 
 
 

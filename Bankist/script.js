@@ -150,7 +150,6 @@ document.querySelector('.nav')
 // BUT NOT fire off any event on the sibling elements
 document.querySelector('.nav__links')
   .addEventListener('click', function(e) {
-   
     this.style.backgroundColor = randomColor();
     //console.log('CONTAINER', e.target, e.currentTarget)
 });
@@ -178,7 +177,7 @@ console.log(h1.nextElementSibling); // h4 bc its the next sibling
 // when accessing siblings you can only access them next to eachother 
 
 // if you want access to all children
-console.log(h1.parentElement.children); // gives us a iterable, so we canuse the spread operator 
+console.log(h1.parentElement.children); // gives us a iterable, so we can use the spread operator 
 [...h1.parentElement.children].forEach(function(el) {
   if(el !== h1) {
     el.style.transform = 'scale(0.5)';

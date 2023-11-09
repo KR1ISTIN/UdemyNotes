@@ -29,15 +29,17 @@ console.log(ShoppingCart.cart);
 // add('pizza', 2);
 
 // TOP LEVEL AWAIT example
-// blocks the excution of module, lines  38 and 42, 
+// blocks the excution of module, 
 // bc js can work async top level code should be exucuted first, but with await it blocks it unitl its finished
 // line 38 and 40 should be excuted first 
 
-//  console.log('start fetch');
-//  const getData = await fetch('https://jsonplaceholder.typicode.com/posts');
-// const data = await getData.json();
-// console.log(data);
-// console.log('end fetch');
+ console.log('start fetch');
+ const getData = await fetch('https://jsonplaceholder.typicode.com/posts');
+const data = await getData.json();
+console.log(data);
+console.log('end fetch');
+
+
 
 // async will always return a promise, which is what getLastPost will be equal too 
 const getLastPost = async function() {

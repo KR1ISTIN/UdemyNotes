@@ -1,9 +1,10 @@
 console.log('exporting');
 
 // -------------------------blocking code example--------------
-// console.log('start fetching user');
-// await fetch('https://jsonplaceholder.typicode.com/users');
-// console.log('finish fetching');
+console.log('start fetching user');
+await fetch('https://jsonplaceholder.typicode.com/users');
+console.log('finish fetching');
+
 // this example above shows how top level await blocks code from exucuting as async
 // line 4 will print then after the fetch is done all other code will run in this module and in script.js 
 
